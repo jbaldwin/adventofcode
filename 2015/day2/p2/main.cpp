@@ -8,9 +8,9 @@
 
 int main(int argc, char* argv[])
 {
-    std::ifstream input_file("input.txt");
+    std::ifstream input_file("../p1/input.txt");
 
-    uint64_t total_area = {0};
+    uint64_t total_ribbon = {0};
 
     std::string line{};
     while(std::getline(input_file, line))
@@ -26,16 +26,30 @@ int main(int argc, char* argv[])
         uint64_t w = std::stoul(std::string{parts[1]});
         uint64_t h = std::stoul(std::string{parts[2]});
 
-        auto lw = l * w;
-        auto wh = w * h;
-        auto hl = h * l;
+        uint64_t ss1 = {0};
+        uint64_t ss2 = {0};
 
-        total_area += 2 * (lw + wh + hl);
+         if(l <= h && w <= h)
+        {
+            ss1 = l;
+            ss2 = w;
+        }
+        else if (l <= w && h <= w)
+        {
+            ss1 = l;
+            ss2 = h;
+        }
+        else
+        {
+            ss1 = h;
+            ss2 = w;
+        }
 
-        total_area += std::min(lw, std::min(wh, hl));
+        total_ribbon += 2 * ss1 + 2 * ss2;
+        total_ribbon += l * w * h;
     }
 
-    std::cout << total_area << std::endl;
+    std::cout << total_ribbon << std::endl;
 
-    return 0;
+return 0;
 }
