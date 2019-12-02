@@ -1,0 +1,49 @@
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <string_view>
+
+int main(int argc, char* argv[])
+{
+    std::ifstream input_file{"../p1/input.txt"};
+    std::string line{};
+
+    uint64_t nice_str_count = 0;
+
+    while(std::getline(input_file, line))
+    {
+        bool found_pair = false;
+        bool found_xyx = false;
+
+        std::string_view data{line.data(), line.length()};
+
+        for(std::size_t i = 0; i < line.length() - 2; ++i)
+        {
+            // Find two pairs of XY XY, but XXX if X = Y does not count for this rule.
+            // e.g. 'aaa' does not count but 'aaaa' does!
+            auto pair = data.substr(i, 2);
+            auto remaining = data.substr(i + 2);
+            auto found = remaining.find(pair);
+            if(found != std::string_view::npos)
+            {
+                found_pair = true;
+            }
+
+            // Check for XYX pattern, XXX is also acceptable in the rules for this case.
+            // Since we don't care about the middle character just check inner and outer chars.
+            if(data[i] == data[i + 2])
+            {
+                found_xyx = true;
+            }
+        }
+
+        if(found_pair && found_xyx)
+        {
+            ++nice_str_count;
+        }
+    }
+
+    std::cout << nice_str_count << std::endl;
+
+    return 0;
+}
