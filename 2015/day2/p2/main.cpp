@@ -4,7 +4,7 @@
 #include <string_view>
 #include <algorithm>
 
-#include "../../lib/StringUtil.h"
+#include "../../../lib/StringUtil.h"
 
 int main(int argc, char* argv[])
 {
