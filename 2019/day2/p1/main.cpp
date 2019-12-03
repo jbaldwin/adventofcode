@@ -78,7 +78,7 @@ auto execute(std::vector<uint64_t>& instructions) -> void
     }
 }
 
-int main(int argc, char *argv[])
+int main(int argc, char* argv[])
 {
     auto instructions = read_instructions("input.txt");
 
