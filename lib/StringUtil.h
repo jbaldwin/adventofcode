@@ -44,6 +44,15 @@ auto split(
     return out;
 }
 
+auto split(
+    std::string_view s,
+    char delim) -> std::vector<std::string_view>
+{
+    std::vector<std::string_view> out{};
+    split(s, std::string_view{&delim, 1}, out);
+    return out;
+}
+
 
 
 } // namespace str
