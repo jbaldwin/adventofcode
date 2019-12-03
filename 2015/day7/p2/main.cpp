@@ -138,7 +138,7 @@ auto instructions_load_from_file(std::string_view file_name) -> std::vector<Inst
         {
             continue;
         }
-        
+
         auto instruction_parts = str::split(instruction_view, " -> ");
         if(instruction_parts.size() != 2)
         {
@@ -240,10 +240,11 @@ auto execute_find_binary_operands(
     return {};
 }
 
-auto execute(std::vector<Instruction> instructions) -> std::unordered_map<std::string, uint16_t>
+auto execute(
+    std::vector<Instruction> instructions,
+    std::unordered_map<std::string, uint16_t> environment = {}
+    ) -> std::unordered_map<std::string, uint16_t>
 {
-    std::unordered_map<std::string, uint16_t> environment{};
-
     try
     {
         // Its possible to build a dependency graph and then traverse the tree, however,
@@ -364,7 +365,17 @@ auto execute(std::vector<Instruction> instructions) -> std::unordered_map<std::s
 
 int main(int argc, char* argv[])
 {
-    auto instructions = instructions_load_from_file("input.txt");
+    auto instructions = instructions_load_from_file("../p1/input.txt");
+
+    /// probably easier to just edit the input file... but this was cool /shrug!
+    for(auto& inst : instructions)
+    {
+        if(inst.m_store == "b")
+        {
+            inst.m_operator = Operator::COPY;
+            inst.m_l_operand = 956;
+        }
+    }
 
     auto env = execute(instructions);
 
