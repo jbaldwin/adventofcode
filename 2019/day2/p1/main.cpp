@@ -1,10 +1,11 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
+#include <string>
 #include <tuple>
 
-#include "../../../lib/FileUtil.h"
-#include "../../../lib/StringUtil.h"
+#include <lib/FileUtil.h>
+#include <lib/StringUtil.h>
 
 enum class OpCodeEnum
 {
@@ -78,13 +79,24 @@ auto execute(std::vector<uint64_t>& instructions) -> void
     }
 }
 
-int main(int argc, char* argv[])
+int start(std::vector<std::string> args)
 {
-    auto instructions = read_instructions("input.txt");
+    if(args.size() != 2)
+    {
+        std::cout << args[0] << " <input_file>" << std::endl;
+        return 1;
+    }
+
+    auto instructions = read_instructions(args[1]);
 
     execute(instructions);
 
     std::cout << instructions[0] << std::endl;
 
     return 0;
+}
+
+int main(int argc, char* argv[])
+{
+    return start({argv, argv + argc});
 }

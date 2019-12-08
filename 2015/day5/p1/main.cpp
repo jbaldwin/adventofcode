@@ -1,10 +1,17 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <vector>
 
-int main(int argc, char* argv[])
+int start(std::vector<std::string> args)
 {
-    std::ifstream input_file{"input.txt"};
+    if(args.size() != 2)
+    {
+        std::cout << args[0] << " <input_file>" << std::endl;
+        return 1;
+    }
+
+    std::ifstream input_file{args[1]};
     std::string line{};
 
     uint64_t nice_str_count = 0;
@@ -83,4 +90,9 @@ int main(int argc, char* argv[])
     std::cout << nice_str_count << std::endl;
 
     return 0;
+}
+
+int main(int argc, char* argv[])
+{
+    return start({argv, argv + argc});
 }

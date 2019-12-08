@@ -1,10 +1,16 @@
 #include <iostream>
 #include <fstream>
+#include <vector>
 #include <string>
 
-int main(int argc, char* argv[])
+int start(std::vector<std::string> args)
 {
-    std::ifstream input_file("input.txt");
+    if(args.size() != 2)
+    {
+        std::cout << args[0] << " <input_file>" << std::endl;
+        return 1;
+    }
+    std::ifstream input_file{args[1]};
 
     std::string stairs{};
     std::getline(input_file, stairs);
@@ -30,4 +36,9 @@ int main(int argc, char* argv[])
     std::cout << floor << std::endl;
 
     return 0;
+}
+
+int main(int argc, char* argv[])
+{
+    return start({argv, argv + argc});
 }

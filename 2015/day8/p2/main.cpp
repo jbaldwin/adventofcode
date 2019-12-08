@@ -3,11 +3,17 @@
 #include <string>
 #include <string_view>
 
-#include "../../../lib/StringUtil.h"
+#include <lib/StringUtil.h>
 
-int main(int argc, char* argv[])
+int start(std::vector<std::string> args)
 {
-    std::ifstream input_file("../p1/input.txt");
+    if(args.size() != 2)
+    {
+        std::cout << args[0] << " <input_file>" << std::endl;
+        return 1;
+    }
+
+    std::ifstream input_file{args[1]};
     std::string line{};
 
     uint64_t total_encoded_len = 0;
@@ -40,4 +46,9 @@ int main(int argc, char* argv[])
     std::cout << (total_encoded_len - total_literal_len) << std::endl;
 
     return 0;
+}
+
+int main(int argc, char* argv[])
+{
+    return start({argv, argv + argc});
 }

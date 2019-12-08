@@ -2,12 +2,19 @@
 #include <fstream>
 #include <string>
 #include <string_view>
+#include <vector>
 
-#include "../../../lib/StringUtil.h"
+#include <lib/StringUtil.h>
 
-int main(int argc, char* argv[])
+int start(std::vector<std::string> args)
 {
-    std::ifstream input_file("input.txt");
+    if(args.size() != 2)
+    {
+        std::cout << args[0] << " <input_file>" << std::endl;
+        return 1;
+    }
+
+    std::ifstream input_file{args[1]};
     std::string data{};
 
     uint64_t total_literal_len = 0;
@@ -54,4 +61,9 @@ int main(int argc, char* argv[])
     std::cout << (total_literal_len - total_code_len) << std::endl;
 
     return 0;
+}
+
+int main(int argc, char* argv[])
+{
+    return start({argv, argv + argc});
 }

@@ -4,7 +4,7 @@
 #include <string_view>
 #include <string>
 
-#include "../../../lib/StringUtil.h"
+#include <lib/StringUtil.h>
 
 enum class CommandEnum
 {
@@ -14,9 +14,15 @@ enum class CommandEnum
     TOGGLE
 };
 
-int main(int argc, char* argv[])
+int start(std::vector<std::string> args)
 {
-    std::ifstream input_file("input.txt");
+    if(args.size() != 2)
+    {
+        std::cout << args[0] << " <input_file>" << std::endl;
+        return 1;
+    }
+
+    std::ifstream input_file{args[1]};
     std::string data{};
 
     /// 1000x1000 'false'/'off' starting point.
@@ -119,4 +125,9 @@ int main(int argc, char* argv[])
     std::cout << total_on << std::endl;
 
     return 0;
+}
+
+int main(int argc, char* argv[])
+{
+    return start({argv, argv + argc});
 }

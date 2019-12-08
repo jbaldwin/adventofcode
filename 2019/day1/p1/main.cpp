@@ -1,10 +1,18 @@
 #include <iostream>
 #include <fstream>
+#include <vector>
+#include <string>
 #include <cmath>
 
-int main(int argc, char* argv[])
+int start(std::vector<std::string> args)
 {
-    std::ifstream input_file{"input.txt"};
+    if(args.size() != 2)
+    {
+        std::cout << args[0] << " <input_file>" << std::endl;
+        return 1;
+    }
+
+    std::ifstream input_file{args[1]};
 
     uint64_t total_required_mass{0};
     uint64_t module_mass{0};
@@ -18,5 +26,10 @@ int main(int argc, char* argv[])
 
     std::cout << total_required_mass << std::endl;
 
-    return 0
+    return 0;
+}
+
+int main(int argc, char* argv[])
+{
+    return start({argv, argv + argc});
 }

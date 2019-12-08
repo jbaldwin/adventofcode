@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 
-#include "../../../lib/Crypto.h"
+#include <lib/Crypto.h>
 
 using namespace std::string_literals;
 

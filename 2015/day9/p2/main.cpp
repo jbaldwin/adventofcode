@@ -3,8 +3,9 @@
 #include <string>
 #include <unordered_map>
 #include <set>
+#include <vector>
 
-#include "../../../lib/StringUtil.h"
+#include <lib/StringUtil.h>
 
 using Graph = std::unordered_map<
     std::string,
@@ -53,9 +54,15 @@ auto traverse(
     return 0;
 }
 
-int main(int argc, char* argv[])
+int start(std::vector<std::string> args)
 {
-    std::ifstream input_file("../p1/input.txt");
+    if(args.size() != 2)
+    {
+        std::cout << args[0] << " <input_file>" << std::endl;
+        return 1;
+    }
+
+    std::ifstream input_file{args[1]};
     std::string line{};
 
     Graph routes{};
@@ -89,4 +96,9 @@ int main(int argc, char* argv[])
     std::cout << *distances.begin() << std::endl;
 
     return 0;
+}
+
+int main(int argc, char* argv[])
+{
+    return start({argv, argv + argc});
 }

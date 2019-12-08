@@ -1,5 +1,7 @@
 #include <iostream>
 #include <fstream>
+#include <vector>
+#include <string>
 #include <cmath>
 
 auto fuel_calc(int64_t mass) -> int64_t
@@ -9,9 +11,15 @@ auto fuel_calc(int64_t mass) -> int64_t
     return mass;
 }
 
-int main(int argc, char* argv[])
+int start(std::vector<std::string> args)
 {
-    std::ifstream input_file{"../p1/input.txt"};
+    if(args.size() != 2)
+    {
+        std::cout << args[0] << " <input_file>" << std::endl;
+        return 1;
+    }
+
+    std::ifstream input_file{args[1]};
 
     int64_t total_required_mass{0};
     int64_t module_mass{0};
@@ -31,4 +39,9 @@ int main(int argc, char* argv[])
     std::cout << total_required_mass << std::endl;
 
     return 0;
+}
+
+int main(int argc, char* argv[])
+{
+    return start({argv, argv + argc});
 }

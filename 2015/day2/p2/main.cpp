@@ -4,18 +4,24 @@
 #include <string_view>
 #include <algorithm>
 
-#include "../../../lib/StringUtil.h"
+#include <lib/StringUtil.h>
 
-int main(int argc, char* argv[])
+int start(std::vector<std::string> args)
 {
-    std::ifstream input_file("../p1/input.txt");
+    if(args.size() != 2)
+    {
+        std::cout << args[0] << " <input_file>" << std::endl;
+        return 1;
+    }
+
+    std::ifstream input_file{args[1]};
 
     uint64_t total_ribbon = {0};
 
     std::string line{};
     while(std::getline(input_file, line))
     {
-        auto parts = str::split(line, std::string_view{"x"});
+        auto parts = str::split(line, 'x');
         if(parts.size() != 3)
         {
             std::cerr << "malformed line " << line << std::endl;
@@ -51,5 +57,10 @@ int main(int argc, char* argv[])
 
     std::cout << total_ribbon << std::endl;
 
-return 0;
+    return 0;
+}
+
+int main(int argc, char* argv[])
+{
+    return start({argv, argv + argc});
 }

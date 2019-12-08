@@ -4,9 +4,10 @@
 #include <string_view>
 #include <variant>
 #include <optional>
+#include <vector>
 
-#include "../../../lib/FileUtil.h"
-#include "../../../lib/StringUtil.h"
+#include <lib/FileUtil.h>
+#include <lib/StringUtil.h>
 
 using namespace std::string_literals;
 
@@ -362,13 +363,24 @@ auto execute(std::vector<Instruction> instructions) -> std::unordered_map<std::s
     return environment;
 }
 
-int main(int argc, char* argv[])
+int start(std::vector<std::string> args)
 {
-    auto instructions = instructions_load_from_file("input.txt");
+    if(args.size() != 2)
+    {
+        std::cout << args[0] << " <input_file>" << std::endl;
+        return 1;
+    }
+
+    auto instructions = instructions_load_from_file(args[1]);
 
     auto env = execute(instructions);
 
     std::cout << "a: " << env["a"] << std::endl;
 
     return 0;
+}
+
+int main(int argc, char* argv[])
+{
+    return start({argv, argv + argc});
 }

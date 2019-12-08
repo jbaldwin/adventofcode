@@ -60,9 +60,15 @@ auto execute_commands(
     }
 }
 
-int main(int argc, char* argv[])
+int start(std::vector<std::string> args)
 {
-    std::fstream input_file("../p1/input.txt");
+    if(args.size() != 2)
+    {
+        std::cout << args[0] << " <input_file>" << std::endl;
+        return 1;
+    }
+
+    std::fstream input_file(args[1]);
 
     std::string raw_wire1_cmds{};
     std::string raw_wire2_cmds{};
@@ -102,4 +108,9 @@ int main(int argc, char* argv[])
     std::cout << min_steps_distance << std::endl;
 
     return 0;
+}
+
+int main(int argc, char* argv[])
+{
+    return start({argv, argv + argc});
 }
