@@ -5,6 +5,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/${CMAKE_BUILD_TYP
 
 project(adventofcode)
 add_library(${PROJECT_NAME} 
+    lib/Algorithms.hpp
     lib/Crypto.h
     lib/FileUtil.h lib/FileUtil.cpp
     lib/StringUtil.h lib/StringUtil.cpp
@@ -66,3 +67,5 @@ project_setup(2019 5 1)
 project_setup(2019 5 2)
 project_setup(2019 6 1)
 project_setup(2019 6 2)
+project_setup(2019 7 1)
+project_setup(2019 7 2)
