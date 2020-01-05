@@ -49,4 +49,31 @@ auto permutate(
     _permutate<DataType, DataLength>(empty_prefix, data, 0, DataLength, callback);
 }
 
+/// Calculates the greatest common divisor of \c a and \c b.
+auto gcd(
+    int64_t a,
+    int64_t b
+) -> int64_t
+{
+    while(b != 0)
+    {
+        int64_t t = a;
+        a = b;
+        b = t % b;
+    }
+    return a;
+}
+
+/// Reduces the fraction of \c n / \c d.
+auto fraction_reduce(
+    int64_t& n,
+    int64_t& d
+) -> void
+{
+    auto div = gcd(n, d);
+
+    n /= div;
+    d /= div;
+}
+
 } // namespace algo
