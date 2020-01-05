@@ -3,7 +3,7 @@
 #include <unordered_map>
 #include <functional>
 
-#include "../../../lib/StringUtil.h"
+#include <lib/StringUtil.h>
 
 struct Point
 {
