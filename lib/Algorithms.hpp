@@ -1,3 +1,5 @@
+#pragma once
+
 #include <array>
 #include <functional>
 
@@ -50,24 +52,57 @@ auto permutate(
 }
 
 /// Calculates the greatest common divisor of \c a and \c b.
+/// \tparam IntType An integer type.
+template<typename IntType>
 auto gcd(
-    int64_t a,
-    int64_t b
-) -> int64_t
+    IntType a,
+    IntType b
+) -> IntType
 {
     while(b != 0)
     {
-        int64_t t = a;
+        IntType t = a;
         a = b;
         b = t % b;
     }
     return a;
 }
 
+template<typename IntType, typename... ArgType>
+auto gcd(
+    IntType a,
+    ArgType... args
+) -> IntType
+{
+    return gcd(a, gcd(args...));
+}
+
+/// Calculates the least common multiple of \c a and \c b.
+/// \tparam IntType An integer type.
+template<typename IntType>
+auto lcm(
+    IntType a,
+    IntType b
+) -> IntType
+{
+    return (a / gcd(a, b)) * b;
+}
+
+template<typename IntType, typename... ArgType>
+auto lcm(
+    IntType a,
+    ArgType... args
+) -> IntType
+{
+    return lcm(a, lcm(args...));
+}
+
 /// Reduces the fraction of \c n / \c d.
+/// \tparam IntType An integer type.
+template<typename IntType>
 auto fraction_reduce(
-    int64_t& n,
-    int64_t& d
+    IntType& n,
+    IntType& d
 ) -> void
 {
     auto div = gcd(n, d);
