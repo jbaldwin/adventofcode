@@ -10,6 +10,8 @@ add_library(${PROJECT_NAME}
     lib/Crypto.h
     lib/FileUtil.h lib/FileUtil.cpp
     lib/StringUtil.h lib/StringUtil.cpp
+
+    2019/intcode/Interpreter.hpp
 )
 target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_17)
 target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
@@ -80,3 +82,5 @@ project_setup(2019 11 1)
 project_setup(2019 11 2)
 project_setup(2019 12 1)
 project_setup(2019 12 2)
+project_setup(2019 13 1)
+project_setup(2019 13 2)
