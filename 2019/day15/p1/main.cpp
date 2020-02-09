@@ -142,7 +142,7 @@ struct Node : public astar::INode
                             = std::make_unique<Node>(interpreter, map, x + c_x, y + c_y);
                     }
 
-                    std::cout << "Adding child [" << (x + c_x) << "," << (y + c_y) << "]\n";
+                    // std::cout << "Adding child [" << (x + c_x) << "," << (y + c_y) << "]\n";
                     neighbors.push_back(g_astar_map[x + c_x][y + c_y].get());
                 }
             }
@@ -325,14 +325,24 @@ int main(int argc, char* argv[])
                 return 0;
             break;
             case astar::State::SEARCHING:
-                std::cout << "Searching iteration " << iterations << "\n";
-                std::cout << "OpenList.size() == " << a.OpenList().size() << "\n";
-                std::cout << "ClosedList.size() == " << a.ClosedList().size() << "\n";
-                std::cout << std::endl;
+                // std::cout << "Searching iteration " << iterations << "\n";
+                // std::cout << "OpenList.size() == " << a.OpenList().size() << "\n";
+                // std::cout << "ClosedList.size() == " << a.ClosedList().size() << "\n";
+                // std::cout << std::endl;
             break;
             case astar::State::GOALFOUND:
             {
                 auto path = a.Path();
+                Map path_map{};
+                for(const auto& inode : path)
+                {
+                    auto* node = static_cast<const Node*>(inode);
+
+                    path_map[node->x][node->y] = Tile::EMPTY;
+                }
+
+                print_map(path_map, 0, 0);
+
                 std::cout << "Steps: " << path.size() << std::endl;
                 return 0;
             }
