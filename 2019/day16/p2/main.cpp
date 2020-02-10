@@ -1,60 +1,9 @@
 #include <iostream>
 #include <vector>
-#include <thread>
-#include <atomic>
 #include <map>
+#include <numeric>
 
 #include <lib/FileUtil.h>
-
-static std::atomic<uint64_t> g_running{0};
-
-auto fft_apply_pattern(
-    const std::vector<int64_t>& input,
-    std::size_t pattern_idx
-) -> int64_t
-{
-    if(pattern_idx % 100 == 0)
-    {
-        std::cout << "Applying pattern " << pattern_idx << std::endl;
-    }
-    static std::vector<int64_t> g_pattern {0, 1, 0, -1};
-
-    thread_local std::map<uint64_t, std::vector<int64_t>> t_patterns{};
-
-    auto& pattern = t_patterns[pattern_idx];
-    if(pattern.empty())
-    {
-        for(const auto p : g_pattern)
-        {
-            for(std::size_t i = 0; i < pattern_idx; ++i)
-            {
-                pattern.push_back(p);
-            }
-        }
-    }
-
-    auto p_size = pattern.size();
-    auto i_size = input.size();
-
-    int64_t total{0};
-    std::size_t i{0};
-    std::size_t p{1};
-
-    while(i < i_size)
-    {
-        if(i > 0)
-        {
-            p = 0;
-        }
-
-        while(p < p_size && i < i_size)
-        {
-            total += input[i++] * pattern[p++];
-        }
-    }
-
-    return std::abs(total % 10);
-}
 
 auto fft(
     std::vector<int64_t> input,
@@ -66,45 +15,12 @@ auto fft(
 
     for(uint64_t p = 1; p <= phases; ++p)
     {
-        std::cout << "Executing phase " << p << std::endl;
-        for(std::size_t i = 0; i < input.size(); ++i)
+        int64_t sum = std::accumulate(input.begin(), input.end(), 0);
+
+        for(int64_t i = 0; i < input.size(); ++i)
         {
-            if(i % 100 == 0)
-            {
-                std::cout << "Applying pattern " << i << std::endl;
-            }
-            static std::vector<int64_t> g_pattern {0, 1, 0, -1};
-            static std::map<uint64_t, std::vector<int64_t>> t_patterns{};
-
-            auto& pattern = t_patterns[i + 1];
-            if(pattern.empty())
-            {
-                for(const auto p : g_pattern)
-                {
-                    for(std::size_t k = 0; k < i; ++k)
-                    {
-                        pattern.push_back(p);
-                    }
-                }
-            }
-
-            while(g_running >= 16)
-            {
-                std::this_thread::sleep_for(std::chrono::milliseconds{10});
-            }
-
-            g_running++;
-            
-            std::thread worker([i, &input, &output, &pattern]() { 
-                output[i] = fft_apply_pattern(input, i + 1);
-                g_running--;
-            });
-            worker.detach();
-        }
-
-        while(g_running > 0)
-        {
-            std::this_thread::sleep_for(std::chrono::milliseconds{10});
+            output[i] = ((sum % 10) + 10) % 10;
+            sum -= input[i];
         }
         
         output.swap(input);
@@ -148,35 +64,38 @@ int main(int argc, char* argv[])
         orig_input.push_back(i);
     }
 
-    std::vector<int64_t> input{};
-    input.reserve(orig_input.size() * repeat);
+    std::string offset_str{};
+    for(std::size_t i = 0; i < 7; ++i)
+    {
+        offset_str += std::to_string(orig_input[i]);
+    }
+    uint64_t offset = std::stoul(offset_str);
+
+    std::vector<int64_t> input_repeated{};
+    input_repeated.reserve(orig_input.size() * repeat);
     for(std::size_t r = 0; r < repeat; ++r)
     {
         for(const auto i : orig_input)
         {
-            input.push_back(i);
+            input_repeated.push_back(i);
         }
     }
 
-    auto output = fft(std::move(input), phases);
+    std::vector<int64_t> input{};
+    input.reserve(input_repeated.size() - offset);
+    for(std::size_t i = offset; i < input_repeated.size(); ++i)
+    {
+        input.push_back(input_repeated[i]);
+    }
 
-    std::string offset_str;
+    auto output = fft(std::move(input), phases);
     
-    std::cout << "Message Offset=";
+    std::cout << "Message=";
     for(std::size_t i = 0; i < 8; ++i)
     {
         std::cout << output[i];
-        offset_str += std::to_string(output[i]);
     }
     std::cout << std::endl;
-
-    // auto offset = std::stoul(offset_str);
-    // std::cout << "Message=";
-    // for(std::size_t i = 0; i < 8; ++i)
-    // {
-    //     std::cout << output[offset + i];
-    // }
-    // std::cout << std::endl;
 
     return 0;
 }
