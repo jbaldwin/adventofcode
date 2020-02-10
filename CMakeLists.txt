@@ -29,7 +29,7 @@ function(project_setup year day problem)
         RUNTIME_OUTPUT_DIRECTORY ${project_bin_dir}
     )
     target_compile_features(${name} PRIVATE cxx_std_17)
-    target_link_libraries(${name} PRIVATE adventofcode)
+    target_link_libraries(${name} PRIVATE adventofcode pthread)
 
     if (EXISTS "${year}/day${day}/p${problem}/input.txt")
         file(COPY 
@@ -89,3 +89,5 @@ project_setup(2019 14 1)
 project_setup(2019 14 2)
 project_setup(2019 15 1)
 project_setup(2019 15 2)
+project_setup(2019 16 1)
+project_setup(2019 16 2)
