@@ -44,12 +44,25 @@ public:
 
     virtual auto IsGoal(INode& goal) const -> bool = 0;
 
+    // Called when the node is visited by the algorithm.
+    virtual auto Visited() -> void { }
+
+    // Resets the node to the initial state before the algorithm runs.
+    auto Reset() -> void
+    {
+        movement_cost = 0;
+        estimated_cost = 0;
+        children.reset();
+        closed_list = false;
+        open_list = false;
+        parent = nullptr;
+    }
+
 protected:
     int64_t movement_cost{0};
     int64_t estimated_cost{0};
     std::optional<std::vector<INode*>> children{};
 
-private:
     bool closed_list{false};
     bool open_list{false};
     INode* parent{nullptr};
@@ -111,6 +124,7 @@ public:
             break;
         }
 
+        current->Visited();
         current->ClosedList(true);
         closed_list.emplace(current->TotalCost(), *current);
 
