@@ -1,9 +1,9 @@
 cmake_minimum_required(VERSION 3.10)
 
 # Default to Debug if not provided.
-if(NOT DEFINED ${CMAKE_BUILD_TYPE})
-    set(CMAKE_BUILD_TYPE "Debug")
-endif()
+# if(NOT DEFINED ${CMAKE_BUILD_TYPE})
+#     set(CMAKE_BUILD_TYPE "Debug")
+# endif()
 
 set(CMAKE_LIBRARY_OUTPUT_PATH ${CMAKE_CURRENT_SOURCE_DIR}/${CMAKE_BUILD_TYPE}/lib)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/${CMAKE_BUILD_TYPE}/bin)
@@ -99,3 +99,5 @@ project_setup(2019 16 2)
 project_setup(2019 17 1)
 project_setup(2019 17 2)
 project_setup(2019 18 1)
+project_setup(2019 19 1)
+project_setup(2019 19 2)
