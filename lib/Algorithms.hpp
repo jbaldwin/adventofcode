@@ -51,6 +51,39 @@ auto permutate(
     _permutate<DataType, DataLength>(empty_prefix, data, 0, DataLength, callback);
 }
 
+template<typename DataType, size_t DataLength, size_t ComboSize>
+auto _combinate(
+    const std::array<DataType, DataLength>& data,
+    size_t len,
+    size_t start_pos,
+    std::array<DataType, ComboSize>& result,
+    std::function<void(const std::array<DataType, ComboSize>&)>& callback
+) -> void
+{
+    if(len == 0)
+    {
+        callback(result);
+    }
+    else
+    {
+        for(size_t i = start_pos; i <= data.size() - len; ++i)
+        {
+            result[result.size() - len] = data[i];
+            _combinate(data, len - 1, i + 1, result, callback);
+        }
+    }
+}
+
+template<typename DataType, size_t DataLength, size_t ComboSize>
+auto combinate(
+    const std::array<DataType, DataLength>& data,
+    std::function<void(const std::array<DataType, ComboSize>&)> callback
+) -> void
+{
+    std::array<DataType, ComboSize> result{};
+    _combinate(data, ComboSize, 0, result, callback);
+}
+
 /// Calculates the greatest common divisor of \c a and \c b.
 /// \tparam IntType An integer type.
 template<typename IntType>

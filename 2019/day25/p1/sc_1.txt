@@ -1,0 +1,103 @@
+mutex ornament astrolabe sand semiconductor dehydrated-water shell
+
+mutex ornament astrolabe sand semiconductor dehydrated-water    X
+mutex ornament astrolabe sand semiconductor shell               X
+mutex ornament astrolabe sand dehydrated-water shell            X
+mutex ornament astrolabe semiconductor dehydrated-water shell   X
+mutex ornament sand semiconductor dehydrated-water shell        X
+mutex astrolabe sand semiconductor dehydrated-water shell       X
+ornament astrolabe sand semiconductor dehydrated-water shell    X
+
+mutex ornament astrolabe sand semiconductor                     X
+mutex ornament astrolabe sand dehydrated-water                  X
+mutex ornament astrolabe sand shell                             X
+mutex ornament astrolabe semiconductor dehydrated-water         X
+mutex ornament astrolabe semiconductor shell                    X
+mutex ornament astrolabe dehydrated-water shell                 X
+mutex ornament sand semiconductor dehydrated-water              X
+mutex ornament sand semiconductor shell                         X
+mutex ornament sand dehydrated-water shell                      X
+mutex ornament semiconductor dehydrated-water shell             X
+mutex astrolabe sand semiconductor dehydrated-water             X
+mutex astrolabe sand semiconductor shell                        X
+mutex astrolabe sand dehydrated-water shell                     X
+mutex astrolabe semiconductor dehydrated-water shell            X
+mutex sand semiconductor dehydrated-water shell                 X
+ornament astrolabe sand semiconductor dehydrated-water          X
+ornament astrolabe sand semiconductor shell                     X
+ornament astrolabe sand dehydrated-water shell                  X
+ornament astrolabe semiconductor dehydrated-water shell         X
+ornament sand semiconductor dehydrated-water shell              X
+astrolabe sand semiconductor dehydrated-water shell             X
+
+mutex ornament astrolabe sand                                   X
+mutex ornament astrolabe semiconductor                          X
+mutex ornament astrolabe dehydrated-water                       X
+mutex ornament astrolabe shell                                  X
+mutex ornament sand semiconductor                               X
+mutex ornament sand dehydrated-water                            X
+mutex ornament sand shell                                       X
+mutex ornament semiconductor dehydrated-water                   X
+mutex ornament semiconductor shell                              X
+mutex ornament dehydrated-water shell                           X
+mutex astrolabe sand semiconductor                              X
+mutex astrolabe sand dehydrated-water                           X
+mutex astrolabe sand shell                                      X
+mutex astrolabe semiconductor dehydrated-water                  X
+mutex astrolabe semiconductor shell                             X
+mutex astrolabe dehydrated-water shell                          X
+mutex sand semiconductor dehydrated-water                       X
+mutex sand semiconductor shell                                  X
+mutex sand dehydrated-water shell                               X
+mutex semiconductor dehydrated-water shell                      X
+ornament astrolabe sand semiconductor                           X
+ornament astrolabe sand dehydrated-water                        X
+ornament astrolabe sand shell                                   DING DING DING
+ornament astrolabe semiconductor dehydrated-water 
+ornament astrolabe semiconductor shell 
+ornament astrolabe dehydrated-water shell 
+ornament sand semiconductor dehydrated-water 
+ornament sand semiconductor shell 
+ornament sand dehydrated-water shell 
+ornament semiconductor dehydrated-water shell 
+astrolabe sand semiconductor dehydrated-water 
+astrolabe sand semiconductor shell 
+astrolabe sand dehydrated-water shell 
+astrolabe semiconductor dehydrated-water shell 
+sand semiconductor dehydrated-water shell
+
+mutex ornament astrolabe 
+mutex ornament sand 
+mutex ornament semiconductor 
+mutex ornament dehydrated-water 
+mutex ornament shell 
+mutex astrolabe sand 
+mutex astrolabe semiconductor 
+mutex astrolabe dehydrated-water 
+mutex astrolabe shell 
+mutex sand semiconductor 
+mutex sand dehydrated-water 
+mutex sand shell 
+mutex semiconductor dehydrated-water 
+mutex semiconductor shell 
+mutex dehydrated-water shell 
+ornament astrolabe sand 
+ornament astrolabe semiconductor 
+ornament astrolabe dehydrated-water 
+ornament astrolabe shell 
+ornament sand semiconductor 
+ornament sand dehydrated-water 
+ornament sand shell 
+ornament semiconductor dehydrated-water 
+ornament semiconductor shell 
+ornament dehydrated-water shell 
+astrolabe sand semiconductor 
+astrolabe sand dehydrated-water 
+astrolabe sand shell 
+astrolabe semiconductor dehydrated-water 
+astrolabe semiconductor shell 
+astrolabe dehydrated-water shell 
+sand semiconductor dehydrated-water 
+sand semiconductor shell 
+sand dehydrated-water shell 
+semiconductor dehydrated-water shell

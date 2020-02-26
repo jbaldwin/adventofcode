@@ -1,0 +1,16 @@
+                                                                                    [Navigation, astrolabe (OK)]
+                                                                                        |
+                                                                                    [Hallway, escape pod (NO)]      [Crew quarters, dehydrated water(OK)]
+                                                                                        |                               |
+                            [Storage, mutex (OK)]===[Arcade]========================[Kitchen, sand (OK)]    [Corridor, infinite loop(NO)]
+                                                                                        |                       |
+                                                    [Observatory, shell (OK])]          |                   [Warp drive maint]
+                                                        |                               |                       |
+                                                    [Holodeck]=======================[Hull Breach]==========[Science Lab, klein bottle(OK)]=[Stables, semiconductor(OK)]
+                                                        |
+[Gift Wrap Center]=[Hot Choco Fount, ornament(OK)]=[Sick bay, giant electro (NO)]====[Engineering, photons(NO)]
+    |                                                                                   |
+[Security Checkpoint]                                                                [Passages, molten lava(NO)]
+    |
+To pass the security checkpoint use the following items:
+[ornament, astrolabe, semiconductor, shell]
