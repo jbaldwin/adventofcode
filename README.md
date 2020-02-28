@@ -2,6 +2,10 @@
 
 https://adventofcode.com
 
+This project uses git submodules for some libraries
+
+    git clone --recurse-submodules https://github.com/jbaldwin/adventofcode.git
+
 To build every solution availabile:
 
     mkdir Release && cd Release

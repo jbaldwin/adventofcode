@@ -1,9 +1,9 @@
 cmake_minimum_required(VERSION 3.10)
 
-# Default to Debug if not provided.
-# if(NOT DEFINED ${CMAKE_BUILD_TYPE})
-#     set(CMAKE_BUILD_TYPE "Debug")
-# endif()
+# Ignore tests and do not install nlohmann/json
+set(JSON_BuildTests OFF CACHE INTERNAL "")
+set(JSON_Install OFF CACHE INTERNAL "")
+add_subdirectory(vendor/nlohmann/json)
 
 set(CMAKE_LIBRARY_OUTPUT_PATH ${CMAKE_CURRENT_SOURCE_DIR}/${CMAKE_BUILD_TYPE}/lib)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/${CMAKE_BUILD_TYPE}/bin)
@@ -34,7 +34,7 @@ function(project_setup year day problem)
         RUNTIME_OUTPUT_DIRECTORY ${project_bin_dir}
     )
     target_compile_features(${name} PRIVATE cxx_std_17)
-    target_link_libraries(${name} PRIVATE adventofcode pthread)
+    target_link_libraries(${name} PRIVATE adventofcode pthread nlohmann_json::nlohmann_json)
 
     if (EXISTS "${year}/day${day}/p${problem}/input.txt")
         file(COPY 
@@ -67,6 +67,8 @@ project_setup(2015 10 1)
 # project_setup(2015 10 2) # No new code for 10.2
 project_setup(2015 11 1)
 # project_setup(2015 11 2) # No new code for 11.2
+project_setup(2015 12 1)
+project_setup(2015 12 2)
 
 project_setup(2019 01 1)
 project_setup(2019 01 2)
