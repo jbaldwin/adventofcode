@@ -344,7 +344,7 @@ int main(int argc, char* argv[])
 
     std::map<std::string, int64_t> results{};
 
-    algo::permutate<int64_t, 5>(
+    algo::permutate<std::array<int64_t, 5>>(
         std::array<int64_t, 5>{5,6,7,8,9},
         [&results, &instructions](const std::array<int64_t, 5> p) -> void
         {

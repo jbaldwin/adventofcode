@@ -5,83 +5,79 @@
 
 namespace algo
 {
-template<typename DataType, size_t DataLength>
+
+template<typename ContainerType>
 auto _permutate(
-    const std::array<DataType, DataLength>& prefix,
-    const std::array<DataType, DataLength>& data,
-    size_t idx,
-    size_t remaining,
-    std::function<void(const std::array<DataType, DataLength>&)>& callback
-) -> void
+    ContainerType& data,
+    std::size_t k,
+    std::function<void(const ContainerType&)>& callback
+)
 {
-    if(remaining == 0)
+    if(k == 1)
     {
-        callback(prefix);
+        callback(data);
+        return;
     }
-    else
+
+    _permutate(data, k - 1, callback);
+
+    bool even = (k % 2) == 0;
+    for(std::size_t i = 0; i < k - 1; ++i)
     {
-        for(size_t i = 0; i < remaining; ++i)
+        if(even)
         {
-            std::array<DataType, DataLength> new_prefix = prefix;
-            new_prefix[idx] = data[i];
-
-            std::array<DataType, DataLength> new_data{};
-            bool i_found{false};
-            for(size_t j = 0; j < remaining; ++j)
-            {
-                if(j == i)
-                {
-                    i_found = true;
-                }
-                new_data[j] = (i_found) ? data[j + 1] : data[j];
-            }
-
-            _permutate(new_prefix, new_data, idx + 1, remaining - 1, callback);
+            std::swap(data[i], data[k - 1]);
         }
+        else
+        {
+            std::swap(data[0], data[k - 1]);
+        }
+
+        _permutate(data, k - 1, callback);
     }
 }
 
-template<typename DataType, size_t DataLength>
+template<typename ContainerType>
 auto permutate(
-    const std::array<DataType, DataLength>& data,
-    std::function<void(const std::array<DataType, DataLength>&)> callback
+    ContainerType data,
+    std::function<void(const ContainerType&)> callback
 ) -> void
 {
-    std::array<DataType, DataLength> empty_prefix{};
-    _permutate<DataType, DataLength>(empty_prefix, data, 0, DataLength, callback);
+    // https://en.wikipedia.org/wiki/Heap's_algorithm
+    _permutate<ContainerType>(data, std::size(data), callback);
 }
 
-template<typename DataType, size_t DataLength, size_t ComboSize>
+template<typename ContainerType1, typename ContainerType2>
 auto _combinate(
-    const std::array<DataType, DataLength>& data,
-    size_t len,
-    size_t start_pos,
-    std::array<DataType, ComboSize>& result,
-    std::function<void(const std::array<DataType, ComboSize>&)>& callback
+    const ContainerType1& data,
+    std::function<void(const ContainerType2&)> callback,
+    std::size_t len,
+    std::size_t start_pos,
+    ContainerType2& result
 ) -> void
 {
     if(len == 0)
     {
         callback(result);
+        return;
     }
-    else
+
+    for(std::size_t i = start_pos; i <= data.size() - len; ++i)
     {
-        for(size_t i = start_pos; i <= data.size() - len; ++i)
-        {
-            result[result.size() - len] = data[i];
-            _combinate(data, len - 1, i + 1, result, callback);
-        }
+        result[result.size() - len] = data[i];
+        _combinate(data, callback, len - 1, i + 1, result);
     }
 }
 
-template<typename DataType, size_t DataLength, size_t ComboSize>
+template<typename ContainerType1, typename ContainerType2>
 auto combinate(
-    const std::array<DataType, DataLength>& data,
-    std::function<void(const std::array<DataType, ComboSize>&)> callback
+    const ContainerType1& data,
+    std::size_t combo_size,
+    std::function<void(const ContainerType2&)> callback
 ) -> void
 {
-    std::array<DataType, ComboSize> result{};
-    _combinate(data, ComboSize, 0, result, callback);
+    ContainerType2 result{};
+    _combinate(data, callback, combo_size, 0, result);
 }
 
 /// Calculates the greatest common divisor of \c a and \c b.

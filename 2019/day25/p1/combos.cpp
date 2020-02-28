@@ -19,8 +19,9 @@ int main(int argc, char* argv[])
          "dehydrated-water",
          "shell"
     };
-    algo::combinate<std::string, 7, CHOOSE>(
+    algo::combinate<std::array<std::string, 7>, std::array<std::string, CHOOSE>>(
         data,
+        CHOOSE,
         [](const std::array<std::string, CHOOSE>& result)
         {
             for(auto c : result)
