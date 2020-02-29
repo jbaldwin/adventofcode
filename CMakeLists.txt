@@ -73,6 +73,8 @@ project_setup(2015 13 1)
 project_setup(2015 13 2)
 project_setup(2015 14 1)
 project_setup(2015 14 2)
+project_setup(2015 15 1)
+project_setup(2015 15 2)
 
 project_setup(2019 01 1)
 project_setup(2019 01 2)
