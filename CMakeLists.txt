@@ -85,6 +85,8 @@ project_setup(2015 19 1)
 project_setup(2015 19 2)
 project_setup(2015 20 1)
 project_setup(2015 20 2)
+project_setup(2015 21 1)
+# project_setup(2015 21 2) # No new code for 21.2
 
 project_setup(2019 01 1)
 project_setup(2019 01 2)
