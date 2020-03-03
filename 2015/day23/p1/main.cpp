@@ -132,16 +132,23 @@ int main(int argc, char* argv[])
     auto contents = file::read(args[1]);
     auto lines = str::split(contents, '\n');
 
-    Computer comp{};
+    Computer comp1{};
     for(const auto& line : lines)
     {
-        comp.instructions.push_back(std::string{line});
+        comp1.instructions.push_back(std::string{line});
     }
+    Computer comp2 = comp1;
 
-    comp.Execute();
+    comp1.Execute();
+    std::cout << "Part 1\n";
+    std::cout << "a=" << comp1.a << "\n";
+    std::cout << "b=" << comp1.b << "\n";
 
-    std::cout << "a=" << comp.a << "\n";
-    std::cout << "b=" << comp.b << "\n";
+    comp2.a = 1;
+    comp2.Execute();
+    std::cout << "Part 2\n";
+    std::cout << "a=" << comp2.a << "\n";
+    std::cout << "b=" << comp2.b << "\n";
 
     return 0;
 }
