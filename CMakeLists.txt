@@ -92,6 +92,8 @@ project_setup(2015 22 1)
 project_setup(2015 23 1)
 # project_setup(2015 23 2) # No new code for 23.2
 project_setup(2015 24 1)
+# project_setup(2015 24 2) # No new code for 24.2
+project_setup(2015 25 1)
 
 project_setup(2019 01 1)
 project_setup(2019 01 2)
