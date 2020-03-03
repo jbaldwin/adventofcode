@@ -1,0 +1,4 @@
+BossHitPoints: 51
+BossDamage: 9
+PlayerHitPoints: 50
+PlayerMana: 500
