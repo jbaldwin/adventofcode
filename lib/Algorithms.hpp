@@ -77,6 +77,7 @@ auto combinate(
 ) -> void
 {
     ContainerType2 result{};
+    for(std::size_t i = 0; i < combo_size; ++i) result.push_back({});
     _combinate(data, callback, combo_size, 0, result);
 }
 
