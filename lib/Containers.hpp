@@ -4,6 +4,51 @@ namespace containers
 {
 
 template<typename IntType>
+struct Vec2
+{
+    IntType x{0};
+    IntType y{0};
+
+    auto operator[](size_t i) -> IntType&
+    {
+        switch(i)
+        {
+            case 0: return x;
+            case 1: return y;
+            default: throw std::out_of_range(std::to_string(i));
+        }
+    }
+
+    auto operator[](size_t i) const -> const IntType&
+    {
+        switch(i)
+        {
+            case 0: return x;
+            case 1: return y;
+            default: throw std::out_of_range(std::to_string(i));
+        }
+    }
+
+    auto operator==(const Vec2& other) const -> bool
+    {
+        return x == other.x && y == other.y;
+    }
+
+    auto operator<(const Vec2& other) const -> bool
+    {
+        return std::tie(x, y) < std::tie(other.x, other.y);
+    }
+
+    friend auto operator<<(std::ostream& os, const Vec2& v) -> std::ostream&
+    {
+        os << "[";
+        os << "x=" << v.x;
+        os << ", y=" << v.y;
+        os << "]";
+    }
+};
+
+template<typename IntType>
 struct Vec3
 {
     IntType x{0};
@@ -35,6 +80,11 @@ struct Vec3
     auto operator==(const Vec3& other) const -> bool
     {
         return x == other.x && y == other.y && z == other.z;
+    }
+
+    auto operator<(const Vec3& other) const -> bool
+    {
+        return std::tie(x, y, z) < std::tie(other.x, other.y, other.z);
     }
 
     friend auto operator<<(std::ostream& os, const Vec3& v) -> std::ostream&
