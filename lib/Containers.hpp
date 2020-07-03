@@ -1,5 +1,7 @@
 #pragma once
 
+#include <tuple>
+
 namespace containers
 {
 
@@ -8,6 +10,16 @@ struct Vec2
 {
     IntType x{0};
     IntType y{0};
+
+    Vec2(
+        IntType x_param,
+        IntType y_param
+    )
+        :   x(x_param)
+        ,   y(y_param)
+    {
+
+    }
 
     auto operator[](size_t i) -> IntType&
     {
@@ -37,6 +49,17 @@ struct Vec2
     auto operator<(const Vec2& other) const -> bool
     {
         return std::tie(x, y) < std::tie(other.x, other.y);
+    }
+
+    auto operator+(const Vec2& other) const -> Vec2
+    {
+        return Vec2{x + other.x, y + other.y};
+    }
+
+    auto operator+=(const Vec2& other) -> void
+    {
+        x += other.x;
+        y += other.y;
     }
 
     friend auto operator<<(std::ostream& os, const Vec2& v) -> std::ostream&

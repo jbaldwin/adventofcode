@@ -25,7 +25,7 @@ target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 function(project_setup year day problem)
     set(name ${year}_day${day}_p${problem})
     project(${name})
-    set(project_bin_dir ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${name}/)
+    set(project_bin_dir ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/)
 
     add_executable(${name} ${year}/day${day}/p${problem}/main.cpp)
     set_target_properties(
@@ -102,6 +102,8 @@ project_setup(2015 25 1)
 
 project_setup(2016 01 1)
 project_setup(2016 01 2)
+project_setup(2016 02 1)
+project_setup(2016 02 2)
 
 project_setup(2019 01 1)
 project_setup(2019 01 2)
