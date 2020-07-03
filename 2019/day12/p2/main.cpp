@@ -4,7 +4,7 @@
 #include <cmath>
 
 #include <lib/FileUtil.h>
-#include <lib/StringUtil.h>
+#include <chain/Chain.hpp>
 #include <lib/Algorithms.hpp>
 #include <lib/Containers.hpp>
 
@@ -44,7 +44,7 @@ auto load_moons(
     std::vector<Moon> moons{};
 
     auto positions_contents = file::read(positions_file);
-    auto serialized_moons = str::split(positions_contents, '\n');
+    auto serialized_moons = chain::str::split(positions_contents, '\n');
 
     for(auto smoon : serialized_moons)
     {
@@ -57,11 +57,11 @@ auto load_moons(
         smoon.remove_prefix(1);
         smoon.remove_suffix(1);
 
-        auto serialized_xyz = str::split(smoon, ',');
+        auto serialized_xyz = chain::str::split(smoon, ',');
 
-        auto x_split = str::split(serialized_xyz[0], '=');
-        auto y_split = str::split(serialized_xyz[1], '=');
-        auto z_split = str::split(serialized_xyz[2], '=');
+        auto x_split = chain::str::split(serialized_xyz[0], '=');
+        auto y_split = chain::str::split(serialized_xyz[1], '=');
+        auto z_split = chain::str::split(serialized_xyz[2], '=');
         
         moons.emplace_back(
             Vec3{

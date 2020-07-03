@@ -33,6 +33,7 @@ public:
             case Operator::OR: return "OR";
             case Operator::NOT: return "NOT";
         }
+        throw std::runtime_error("Invalid Operator 'UNKNOWN'.");
     }
 
     static auto to_string(Register r) -> std::string_view
@@ -46,8 +47,9 @@ public:
             case Register::C: return "C";
             case Register::D: return "D";
         }
+        throw std::runtime_error("Invalid Register 'UNKNOWN'.");
     }
-    
+
     struct Instruction
     {
         Operator op;

@@ -6,7 +6,7 @@
 #include <map>
 
 #include <lib/FileUtil.h>
-#include <lib/StringUtil.h>
+#include <chain/Chain.hpp>
 
 struct Spell
 {
@@ -168,13 +168,13 @@ int main(int argc, char* argv[])
     }
 
     auto contents = file::read(args[1]);
-    auto parts = str::split(contents, '\n');
+    auto parts = chain::str::split(contents, '\n');
 
-    auto boss_hp     = std::stol(std::string{str::split(parts[0], ':')[1]});
-    auto boss_damage = std::stol(std::string{str::split(parts[1], ':')[1]});
+    auto boss_hp     = std::stol(std::string{chain::str::split(parts[0], ':')[1]});
+    auto boss_damage = std::stol(std::string{chain::str::split(parts[1], ':')[1]});
 
-    auto player_hp   = std::stol(std::string{str::split(parts[2], ':')[1]});
-    auto player_mana = std::stol(std::string{str::split(parts[3], ':')[1]});
+    auto player_hp   = std::stol(std::string{chain::str::split(parts[2], ':')[1]});
+    auto player_mana = std::stol(std::string{chain::str::split(parts[3], ':')[1]});
 
     std::cout << "Boss hp " << boss_hp << " boss damage " << boss_damage << "\n";
     std::cout << "Player hp " << player_hp << " player mana " << player_mana << "\n";

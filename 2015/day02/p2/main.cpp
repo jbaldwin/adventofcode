@@ -4,7 +4,7 @@
 #include <string_view>
 #include <algorithm>
 
-#include <lib/StringUtil.h>
+#include <chain/Chain.hpp>
 
 int start(std::vector<std::string> args)
 {
@@ -21,7 +21,7 @@ int start(std::vector<std::string> args)
     std::string line{};
     while(std::getline(input_file, line))
     {
-        auto parts = str::split(line, 'x');
+        auto parts = chain::str::split(line, 'x');
         if(parts.size() != 3)
         {
             std::cerr << "malformed line " << line << std::endl;

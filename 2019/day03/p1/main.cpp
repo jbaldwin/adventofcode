@@ -5,7 +5,7 @@
 #include <vector>
 #include <string>
 
-#include <lib/StringUtil.h>
+#include <chain/Chain.hpp>
 
 struct Point
 {
@@ -74,8 +74,8 @@ int start(std::vector<std::string> args)
     std::getline(input_file, raw_wire1_cmds);
     std::getline(input_file, raw_wire2_cmds);
 
-    auto wire1_cmds = str::split(raw_wire1_cmds, ',');
-    auto wire2_cmds = str::split(raw_wire2_cmds, ',');
+    auto wire1_cmds = chain::str::split(raw_wire1_cmds, ',');
+    auto wire2_cmds = chain::str::split(raw_wire2_cmds, ',');
 
     GridType grid{};
 

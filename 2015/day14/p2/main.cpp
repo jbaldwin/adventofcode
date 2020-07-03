@@ -3,7 +3,7 @@
 #include <string>
 
 #include <lib/FileUtil.h>
-#include <lib/StringUtil.h>
+#include <chain/Chain.hpp>
 
 enum class Action
 {
@@ -21,7 +21,7 @@ struct Reindeer
     int64_t distance_travelled{0};
     int64_t points{0};
 
-    auto Fly(int64_t seconds) -> Action
+    auto Fly(int64_t seconds) -> void
     {
         // Reset distance travelled since this currently
         // calculates from 0s => seconds time frame.
@@ -49,7 +49,7 @@ struct Reindeer
             {
                 seconds -= rest_duration;
             }
-    
+
             moving = !moving;
         }
     }
@@ -79,7 +79,7 @@ int main(int argc, char* argv[])
     const auto race_duration_s = std::stol(args[2]);
 
     auto contents = file::read(args[1]);
-    auto lines = str::split(contents, '\n');
+    auto lines = chain::str::split(contents, '\n');
 
     std::vector<Reindeer> reindeer{};
 
@@ -87,7 +87,7 @@ int main(int argc, char* argv[])
     {
         if(line.empty()) continue;
 
-        auto parts = str::split(line, ' ');
+        auto parts = chain::str::split(line, ' ');
 
         Reindeer r{};
 

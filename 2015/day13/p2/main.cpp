@@ -5,7 +5,7 @@
 #include <set>
 
 #include <lib/FileUtil.h>
-#include <lib/StringUtil.h>
+#include <chain/Chain.hpp>
 #include <lib/Algorithms.hpp>
 
 struct Person
@@ -23,7 +23,7 @@ int main(int argc, char* argv[])
     }
 
     auto contents = file::read(args[1]);
-    auto lines = str::split(contents, '\n');
+    auto lines = chain::str::split(contents, '\n');
 
     std::set<std::string> unique_names{};
     std::map<std::string, Person> people{};
@@ -35,7 +35,7 @@ int main(int argc, char* argv[])
             continue;
         }
 
-        auto parts = str::split(line, ' ');
+        auto parts = chain::str::split(line, ' ');
 
         auto who = std::string{parts[0]};
         auto action = parts[2];

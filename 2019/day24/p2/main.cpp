@@ -5,7 +5,7 @@
 #include <map>
 
 #include <lib/FileUtil.h>
-#include <lib/StringUtil.h>
+#include <chain/Chain.hpp>
 
 using Grid = std::array<char, 25>;
 using World = std::map<int64_t, Grid>;
@@ -273,7 +273,6 @@ auto evolve(
                 {
                     grid_future[i] = '#';
                 }
-                
             }
         }
     }
@@ -300,6 +299,7 @@ auto operator<<(
         }
         os << '\n';
     }
+    return os;
 }
 
 auto operator<<(
@@ -357,7 +357,7 @@ int main(int argc, char* argv[])
     World world2{};
 
     auto contents = file::read(args[1]);
-    auto lines = str::split(contents, '\n');
+    auto lines = chain::str::split(contents, '\n');
 
     for(std::size_t y = 0; y < 5; ++y)
     {

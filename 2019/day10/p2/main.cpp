@@ -6,7 +6,7 @@
 #include <cmath>
 
 #include <lib/FileUtil.h>
-#include <lib/StringUtil.h>
+#include <chain/Chain.hpp>
 
 enum class Content
 {

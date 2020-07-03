@@ -5,7 +5,7 @@
 #include <algorithm>
 
 #include <lib/FileUtil.h>
-#include <lib/StringUtil.h>
+#include <chain/Chain.hpp>
 
 int main(int argc, char* argv[])
 {
@@ -18,15 +18,15 @@ int main(int argc, char* argv[])
 
     auto contents = file::read(args[1]);
 
-    auto parts = str::split(contents, "\n\n");
+    auto parts = chain::str::split(contents, "\n\n");
     auto replacement_inputs_all = parts[0];
     auto molecule = std::string{parts[1]};
 
     std::vector<std::pair<std::string, std::string>> replacements{};
 
-    for(const auto& line : str::split(replacement_inputs_all, '\n'))
+    for(const auto& line : chain::str::split(replacement_inputs_all, '\n'))
     {
-        auto replacement_parts = str::split(line, " => ");
+        auto replacement_parts = chain::str::split(line, " => ");
         replacements.emplace_back(
             std::string{replacement_parts[0]},
             std::string{replacement_parts[1]}

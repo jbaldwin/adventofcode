@@ -4,7 +4,7 @@
 #include <string_view>
 #include <vector>
 
-#include <lib/StringUtil.h>
+#include <chain/Chain.hpp>
 
 int start(std::vector<std::string> args)
 {
@@ -24,7 +24,7 @@ int start(std::vector<std::string> args)
     {
         std::string_view line{data};
 
-        line = str::trim(line);
+        line = chain::str::trim_view(line);
 
         total_literal_len += line.length();
 

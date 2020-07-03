@@ -4,7 +4,7 @@
 #include <numeric>
 
 #include <lib/FileUtil.h>
-#include <lib/StringUtil.h>
+#include <chain/Chain.hpp>
 #include <lib/Algorithms.hpp>
 
 int main(int argc, char* argv[])
@@ -19,7 +19,7 @@ int main(int argc, char* argv[])
     auto contents = file::read(args[1]);
 
     std::vector<int64_t> packages{};
-    for(const auto& line : str::split(contents, '\n'))
+    for(const auto& line : chain::str::split(contents, '\n'))
     {
         packages.push_back(std::stol(std::string{line}));
     }

@@ -5,7 +5,7 @@
 #include <vector>
 #include <set>
 
-#include <lib/StringUtil.h>
+#include <chain/Chain.hpp>
 
 using Graph = std::unordered_map<
     std::string,
@@ -71,7 +71,7 @@ int start(std::vector<std::string> args)
 
     while(std::getline(input_file, line))
     {
-        auto parts = str::split(line, ' ');
+        auto parts = chain::str::split(line, ' ');
 
         auto from = std::string{parts[0]};
         auto to   = std::string{parts[2]};

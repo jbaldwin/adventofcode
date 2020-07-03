@@ -4,7 +4,7 @@
 #include <map>
 
 #include <lib/FileUtil.h>
-#include <lib/StringUtil.h>
+#include <chain/Chain.hpp>
 #include <lib/Containers.hpp>
 
 enum class Direction
@@ -52,7 +52,7 @@ int main(int argc, char* argv[])
     auto contents = file::read(args[1]);
 
     std::vector<Movement> movements{};
-    for(const auto& move : str::split(contents, ", "))
+    for(const auto& move : chain::str::split(contents, ", "))
     {
         auto turn = (move[0] == 'R') ? Turn::RIGHT : Turn::LEFT;
         auto blocks = std::stoul(std::string{move.substr(1)});

@@ -4,7 +4,7 @@
 #include <array>
 
 #include <lib/FileUtil.h>
-#include <lib/StringUtil.h>
+#include <chain/Chain.hpp>
 
 using Grid = std::array<std::array<char, 5>, 5>;
 
@@ -72,6 +72,7 @@ auto operator<<(
         }
         os << '\n';
     }
+    return os;
 }
 
 auto calculate_biodiversity(
@@ -90,7 +91,7 @@ auto calculate_biodiversity(
             }
 
             counter *= 2;
-        }   
+        }
     }
 
     return biodiversity;
@@ -108,7 +109,7 @@ int main(int argc, char* argv[])
     Grid grid{};
 
     auto contents = file::read(args[1]);
-    auto lines = str::split(contents, '\n');
+    auto lines = chain::str::split(contents, '\n');
 
     for(std::size_t y = 0; y < 5; ++y)
     {

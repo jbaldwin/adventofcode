@@ -3,7 +3,7 @@
 #include <string>
 
 #include <lib/FileUtil.h>
-#include <lib/StringUtil.h>
+#include <chain/Chain.hpp>
 
 auto look_and_say(
     const std::string& input

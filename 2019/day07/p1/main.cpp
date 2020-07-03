@@ -7,7 +7,7 @@
 #include <map>
 
 #include <lib/FileUtil.h>
-#include <lib/StringUtil.h>
+#include <chain/Chain.hpp>
 #include <lib/Algorithms.hpp>
 
 enum class OpCodeEnum
@@ -32,7 +32,7 @@ enum class ParameterModeEnum
 auto read_instructions(std::string_view file_name) -> std::vector<int64_t>
 {
     auto raw_instructions = file::read(file_name);
-    auto split_instructions = str::split(raw_instructions, ',');
+    auto split_instructions = chain::str::split(raw_instructions, ',');
 
     std::vector<int64_t> instructions{};
     instructions.reserve(split_instructions.size());

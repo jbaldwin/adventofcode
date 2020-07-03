@@ -1,3 +1,6 @@
 [submodule "vendor/nlohmann/json"]
 	path = vendor/nlohmann/json
 	url = https://github.com/nlohmann/json.git
+[submodule "vendor/jbaldwin/libchain"]
+	path = vendor/jbaldwin/libchain
+	url = git@github.com:jbaldwin/libchain.git

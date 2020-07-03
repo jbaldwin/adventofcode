@@ -7,13 +7,13 @@
 #include <array>
 
 #include <lib/FileUtil.h>
-#include <lib/StringUtil.h>
+#include <chain/Chain.hpp>
 #include <lib/Algorithms.hpp>
 
 auto read_instructions(std::string_view file_name) -> std::vector<int64_t>
 {
     auto raw_instructions = file::read(file_name);
-    auto split_instructions = str::split(raw_instructions, ',');
+    auto split_instructions = chain::str::split(raw_instructions, ',');
 
     std::vector<int64_t> instructions{};
     instructions.reserve(split_instructions.size());
@@ -348,8 +348,9 @@ private:
             case ParameterModeEnum::RELATIVE:
                 return m_memory[m_memory[inst_ptr] + m_relative_base];
         }
+        throw std::runtime_error("Invalid parameter mode 'UNKNOWN'.");
     }
- 
+
     /// Calculates the address to store a value at given the current \c inst_ptr
     /// and the parameters mode for the store parameter.
     ///
@@ -369,6 +370,7 @@ private:
             case ParameterModeEnum::RELATIVE:
                 return m_memory[inst_ptr] + m_relative_base;
         }
+        throw std::runtime_error("Invalid parameter mode 'UNKNOWN'.");
     }
 };
 

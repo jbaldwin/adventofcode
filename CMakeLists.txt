@@ -4,18 +4,18 @@ cmake_minimum_required(VERSION 3.10)
 set(JSON_BuildTests OFF CACHE INTERNAL "")
 set(JSON_Install OFF CACHE INTERNAL "")
 add_subdirectory(vendor/nlohmann/json)
+add_subdirectory(vendor/jbaldwin/libchain)
 
 set(CMAKE_LIBRARY_OUTPUT_PATH ${CMAKE_CURRENT_SOURCE_DIR}/${CMAKE_BUILD_TYPE}/lib)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/${CMAKE_BUILD_TYPE}/bin)
 
 project(adventofcode)
-add_library(${PROJECT_NAME} 
+add_library(${PROJECT_NAME}
     lib/Algorithms.hpp
     lib/AStar.hpp
     lib/Containers.hpp
     lib/Crypto.h
     lib/FileUtil.h lib/FileUtil.cpp
-    lib/StringUtil.h lib/StringUtil.cpp
 
     2019/intcode/Interpreter.hpp
 )
@@ -34,10 +34,15 @@ function(project_setup year day problem)
         RUNTIME_OUTPUT_DIRECTORY ${project_bin_dir}
     )
     target_compile_features(${name} PRIVATE cxx_std_17)
-    target_link_libraries(${name} PRIVATE adventofcode pthread nlohmann_json::nlohmann_json)
+    target_link_libraries(${name} PRIVATE
+        adventofcode
+        pthread
+        nlohmann_json::nlohmann_json
+        chain
+    )
 
     if (EXISTS "${year}/day${day}/p${problem}/input.txt")
-        file(COPY 
+        file(COPY
             "${year}/day${day}/p${problem}/input.txt"
             DESTINATION
             ${project_bin_dir}

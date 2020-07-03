@@ -4,7 +4,7 @@
 #include <optional>
 
 #include <lib/FileUtil.h>
-#include <lib/StringUtil.h>
+#include <chain/Chain.hpp>
 
 struct Info
 {
@@ -97,7 +97,7 @@ int main(int argc, char* argv[])
     match.perfumes = 1;
 
     auto contents = file::read(args[1]);
-    auto lines = str::split(contents, '\n');
+    auto lines = chain::str::split(contents, '\n');
 
     std::vector<Info> aunts{};
     aunts.reserve(501);
@@ -106,7 +106,7 @@ int main(int argc, char* argv[])
 
     for(const auto& line : lines)
     {
-        auto parts = str::split(line, ' ');
+        auto parts = chain::str::split(line, ' ');
 
         Info info{};
 

@@ -3,7 +3,7 @@
 #include <map>
 
 #include <lib/FileUtil.h>
-#include <lib/StringUtil.h>
+#include <chain/Chain.hpp>
 
 struct Reaction
 {
@@ -18,11 +18,11 @@ struct Reaction
         os << r.name << ":" << r.amount;
         os << "[";
 
-        os << str::map_join(
+        os << chain::str::map_join(
             r.inputs,
-            ",", 
-            [](const auto& input) { 
-                return input.first + ":" + std::to_string(input.second); 
+            ",",
+            [](const auto& input) {
+                return input.first + ":" + std::to_string(input.second);
             }
         );
         os << "]";
@@ -78,7 +78,7 @@ int main(int argc, char* argv[])
     std::map<std::string, Reaction> reactions{};
 
     auto contents = file::read(args[1]);
-    auto lines = str::split(contents, '\n');
+    auto lines = chain::str::split(contents, '\n');
 
     for(const auto& line : lines)
     {
@@ -89,24 +89,24 @@ int main(int argc, char* argv[])
 
         Reaction r{};
 
-        auto left_right = str::split(line, " => ");
+        auto left_right = chain::str::split(line, " => ");
         if(left_right.size() != 2)
         {
             std::cerr << "Malformed input file on '=>' split. " << line << std::endl;
             return 1;
         }
 
-        auto output_parts = str::split(left_right[1], ' ');
+        auto output_parts = chain::str::split(left_right[1], ' ');
         auto o_amount = std::stoul(std::string{output_parts[0]});
         auto o_name = std::string{output_parts[1]};
 
         r.name = std::move(o_name);
         r.amount = o_amount;
 
-        auto input_parts = str::split(left_right[0], ", ");
+        auto input_parts = chain::str::split(left_right[0], ", ");
         for(const auto& input_part : input_parts)
         {
-            auto lr = str::split(input_part, ' ');
+            auto lr = chain::str::split(input_part, ' ');
             auto i_amount = std::stoul(std::string{lr[0]});
             auto i_name = std::string{lr[1]};
 

@@ -6,7 +6,7 @@
 #include <list>
 
 #include <lib/FileUtil.h>
-#include <lib/StringUtil.h>
+#include <chain/Chain.hpp>
 
 enum class Techniques
 {
@@ -121,7 +121,7 @@ int main(int argc, char* argv[])
 
     Deck deck{num_cards};
 
-    auto lines = str::split(contents, '\n');
+    auto lines = chain::str::split(contents, '\n');
     for(const auto& line : lines)
     {
         if(line == "deal into new stack")

@@ -45,6 +45,7 @@ struct Vec2
         os << "x=" << v.x;
         os << ", y=" << v.y;
         os << "]";
+        return os;
     }
 };
 
@@ -94,6 +95,7 @@ struct Vec3
         os << ", y=" << v.y;
         os << ", z=" << v.z;
         os << "]";
+        return os;
     }
 };
 } // namepsace containers

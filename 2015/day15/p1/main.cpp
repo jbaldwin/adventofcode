@@ -4,7 +4,7 @@
 #include <map>
 
 #include <lib/FileUtil.h>
-#include <lib/StringUtil.h>
+#include <chain/Chain.hpp>
 
 struct Ingredient
 {
@@ -155,13 +155,13 @@ int main(int argc, char* argv[])
     }
 
     auto contents = file::read(args[1]);
-    auto lines = str::split(contents, '\n');
+    auto lines = chain::str::split(contents, '\n');
 
     Ingredients ingredients{};
 
     for(const auto& line : lines)
     {
-        auto parts = str::split(line, ' ');
+        auto parts = chain::str::split(line, ' ');
 
         Ingredient i{};
 

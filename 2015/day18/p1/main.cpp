@@ -5,7 +5,7 @@
 #include <array>
 
 #include <lib/FileUtil.h>
-#include <lib/StringUtil.h>
+#include <chain/Chain.hpp>
 
 using Grid = std::vector<std::vector<char>>;
 
@@ -97,7 +97,7 @@ int main(int argc, char* argv[])
     auto steps = std::stoul(args[2]);
 
     auto contents = file::read(args[1]);
-    auto lines = str::split(contents, '\n');
+    auto lines = chain::str::split(contents, '\n');
 
     Grid grid{};
 

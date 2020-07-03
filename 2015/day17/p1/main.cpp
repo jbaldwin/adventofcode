@@ -6,7 +6,7 @@
 #include <set>
 
 #include <lib/FileUtil.h>
-#include <lib/StringUtil.h>
+#include <chain/Chain.hpp>
 
 auto fill(
     std::vector<int64_t>& remaining,
@@ -107,7 +107,7 @@ int main(int argc, char* argv[])
     auto liters = std::stol(args[2]);
 
     auto contents = file::read(args[1]);
-    auto lines = str::split(contents, '\n');
+    auto lines = chain::str::split(contents, '\n');
 
     std::vector<int64_t> containers{};
 

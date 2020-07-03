@@ -5,7 +5,7 @@
 #include <set>
 #include <fstream>
 
-#include <lib/StringUtil.h>
+#include <chain/Chain.hpp>
 
 struct Orbit
 {
@@ -54,7 +54,7 @@ int main(int argc, char* argv[])
 
     while(std::getline(input_file, line))
     {
-        auto parts = str::split(line, ')');
+        auto parts = chain::str::split(line, ')');
         if(parts.size() != 2)
         {
             std::cerr << "Malformed input: " << line << std::endl;

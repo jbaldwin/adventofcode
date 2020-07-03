@@ -6,7 +6,7 @@
 #include <optional>
 
 #include <lib/FileUtil.h>
-#include <lib/StringUtil.h>
+#include <chain/Chain.hpp>
 
 using namespace std::string_literals;
 
@@ -38,6 +38,7 @@ auto to_string(Operator op) -> const std::string&
         case Operator::RSHIFT: return RSHIFT;
         case Operator::NOT: return NOT;
     }
+    throw std::runtime_error("Invalid Operator 'UNKNOWN'.");
 }
 
 struct Instruction
@@ -127,7 +128,7 @@ auto extract_operand(std::string_view value_view) -> std::variant<std::string, u
 auto instructions_load_from_file(std::string_view file_name) -> std::vector<Instruction>
 {
     auto raw_instructions = file::read(file_name);
-    auto instructions_views = str::split(raw_instructions, '\n');
+    auto instructions_views = chain::str::split(raw_instructions, '\n');
 
     std::vector<Instruction> instructions{};
     instructions.reserve(instructions_views.size());
@@ -139,7 +140,7 @@ auto instructions_load_from_file(std::string_view file_name) -> std::vector<Inst
             continue;
         }
 
-        auto instruction_parts = str::split(instruction_view, " -> ");
+        auto instruction_parts = chain::str::split(instruction_view, " -> ");
         if(instruction_parts.size() != 2)
         {
             std::cerr << "Malformed instruction: " << instruction_view << std::endl;
@@ -151,7 +152,7 @@ auto instructions_load_from_file(std::string_view file_name) -> std::vector<Inst
         Instruction i{};
         i.m_store = std::string{rhs};
 
-        auto lhs_parts = str::split(lhs, ' ');
+        auto lhs_parts = chain::str::split(lhs, ' ');
 
         if(lhs_parts.size() == 1)
         {

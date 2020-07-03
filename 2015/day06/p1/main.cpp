@@ -4,7 +4,7 @@
 #include <string_view>
 #include <string>
 
-#include <lib/StringUtil.h>
+#include <chain/Chain.hpp>
 
 enum class CommandEnum
 {
@@ -61,15 +61,15 @@ int start(std::vector<std::string> args)
             continue;
         }
 
-        auto parts = str::split(line, ' ');
+        auto parts = chain::str::split(line, ' ');
         if (parts.size() != 3)
         {
             std::cerr << "Malformed ranges: " << line << std::endl;
             continue;
         }
 
-        auto range1_views = str::split(parts[0], ',');
-        auto range2_views = str::split(parts[2], ',');
+        auto range1_views = chain::str::split(parts[0], ',');
+        auto range2_views = chain::str::split(parts[2], ',');
         if (range1_views.size() != 2)
         {
             std::cerr << "Malformed range1: " << parts[0] << std::endl;

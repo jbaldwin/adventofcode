@@ -3,7 +3,7 @@
 #include <string>
 
 #include <lib/FileUtil.h>
-#include <lib/StringUtil.h>
+#include <chain/Chain.hpp>
 
 struct Computer
 {
@@ -25,7 +25,7 @@ struct Computer
 
             const auto& inst = instructions[inst_ptr];
 
-            auto parts = str::split(inst, ' ');
+            auto parts = chain::str::split(inst, ' ');
 
             if(parts[0] == "hlf")
             {
@@ -130,7 +130,7 @@ int main(int argc, char* argv[])
     }
 
     auto contents = file::read(args[1]);
-    auto lines = str::split(contents, '\n');
+    auto lines = chain::str::split(contents, '\n');
 
     Computer comp1{};
     for(const auto& line : lines)

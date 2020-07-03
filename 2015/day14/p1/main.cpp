@@ -3,7 +3,7 @@
 #include <string>
 
 #include <lib/FileUtil.h>
-#include <lib/StringUtil.h>
+#include <chain/Chain.hpp>
 
 struct Reindeer
 {
@@ -38,7 +38,7 @@ int main(int argc, char* argv[])
     const auto race_duration_s = std::stol(args[2]);
 
     auto contents = file::read(args[1]);
-    auto lines = str::split(contents, '\n');
+    auto lines = chain::str::split(contents, '\n');
 
     std::vector<Reindeer> reindeer{};
 
@@ -46,7 +46,7 @@ int main(int argc, char* argv[])
     {
         if(line.empty()) continue;
 
-        auto parts = str::split(line, ' ');
+        auto parts = chain::str::split(line, ' ');
 
         Reindeer r{};
 

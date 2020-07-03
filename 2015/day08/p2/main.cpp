@@ -3,7 +3,7 @@
 #include <string>
 #include <string_view>
 
-#include <lib/StringUtil.h>
+#include <chain/Chain.hpp>
 
 int start(std::vector<std::string> args)
 {
@@ -21,7 +21,7 @@ int start(std::vector<std::string> args)
 
     while(std::getline(input_file, line))
     {
-        line = str::trim(line);
+        chain::str::trim(line);
 
         total_literal_len += line.length();
 

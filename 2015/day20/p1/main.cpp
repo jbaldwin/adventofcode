@@ -3,7 +3,7 @@
 #include <string>
 
 #include <lib/FileUtil.h>
-#include <lib/StringUtil.h>
+#include <chain/Chain.hpp>
 
 int main(int argc, char* argv[])
 {
