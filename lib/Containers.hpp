@@ -11,6 +11,8 @@ struct Vec2
     IntType x{0};
     IntType y{0};
 
+    Vec2() = default;
+
     Vec2(
         IntType x_param,
         IntType y_param
@@ -79,6 +81,20 @@ struct Vec3
     IntType y{0};
     IntType z{0};
 
+    Vec3() = default;
+
+    Vec3(
+        IntType x_param,
+        IntType y_param,
+        IntType z_param
+    )
+        : x(x_param)
+        , y(y_param)
+        , z(z_param)
+    {
+
+    }
+
     auto operator[](size_t i) -> IntType&
     {
         switch(i)
@@ -109,6 +125,18 @@ struct Vec3
     auto operator<(const Vec3& other) const -> bool
     {
         return std::tie(x, y, z) < std::tie(other.x, other.y, other.z);
+    }
+
+    auto operator+(const Vec3& other) const -> Vec3
+    {
+        return Vec3{x + other.x, y + other.y, z + other.z};
+    }
+
+    auto operator+=(const Vec3& other) -> void
+    {
+        x += other.x;
+        y += other.y;
+        z += other.z;
     }
 
     friend auto operator<<(std::ostream& os, const Vec3& v) -> std::ostream&
