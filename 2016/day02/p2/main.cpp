@@ -3,7 +3,7 @@
 
 #include <lib/Containers.hpp>
 #include <lib/FileUtil.h>
-#include <chain/Chain.hpp>
+#include <chain/chain.hpp>
 
 using Vec2 = containers::Vec2<int64_t>;
 using DialPad = std::array<std::array<char, 5>, 5>;

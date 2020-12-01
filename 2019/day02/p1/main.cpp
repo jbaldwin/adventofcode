@@ -5,7 +5,7 @@
 #include <tuple>
 
 #include <lib/FileUtil.h>
-#include <chain/Chain.hpp>
+#include <chain/chain.hpp>
 
 enum class OpCodeEnum
 {

@@ -3,7 +3,7 @@
 #include <string>
 #include <string_view>
 
-#include <chain/Chain.hpp>
+#include <chain/chain.hpp>
 
 int start(std::vector<std::string> args)
 {

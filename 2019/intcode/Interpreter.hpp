@@ -7,7 +7,7 @@
 #include <iostream>
 
 #include <lib/FileUtil.h>
-#include <chain/Chain.hpp>
+#include <chain/chain.hpp>
 
 namespace intcode
 {

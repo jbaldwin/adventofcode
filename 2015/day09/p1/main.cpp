@@ -5,7 +5,7 @@
 #include <vector>
 #include <set>
 
-#include <chain/Chain.hpp>
+#include <chain/chain.hpp>
 
 using Graph = std::unordered_map<
     std::string,

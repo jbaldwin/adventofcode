@@ -2,7 +2,7 @@
 #include <vector>
 
 #include <lib/FileUtil.h>
-#include <chain/Chain.hpp>
+#include <chain/chain.hpp>
 #include <lib/Containers.hpp>
 
 using Triangle = containers::Vec3<uint64_t>;

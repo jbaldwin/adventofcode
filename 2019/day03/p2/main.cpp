@@ -3,7 +3,7 @@
 #include <unordered_map>
 #include <functional>
 
-#include <chain/Chain.hpp>
+#include <chain/chain.hpp>
 
 struct Point
 {

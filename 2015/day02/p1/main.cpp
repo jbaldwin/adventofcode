@@ -4,7 +4,7 @@
 #include <string_view>
 #include <algorithm>
 
-#include <chain/Chain.hpp>
+#include <chain/chain.hpp>
 
 int start(std::vector<std::string> args)
 {

@@ -6,7 +6,7 @@
 #include <optional>
 
 #include <lib/FileUtil.h>
-#include <chain/Chain.hpp>
+#include <chain/chain.hpp>
 
 using namespace std::string_literals;
 
@@ -380,7 +380,7 @@ int start(std::vector<std::string> args)
         if(inst.m_store == "b")
         {
             inst.m_operator = Operator::COPY;
-            inst.m_l_operand = 956;
+            inst.m_l_operand = static_cast<uint16_t>(956);
         }
     }
 

@@ -5,7 +5,7 @@
 #include <vector>
 #include <string>
 
-#include <chain/Chain.hpp>
+#include <chain/chain.hpp>
 
 struct Point
 {

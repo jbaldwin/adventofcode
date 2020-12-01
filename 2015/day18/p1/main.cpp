@@ -5,7 +5,7 @@
 #include <array>
 
 #include <lib/FileUtil.h>
-#include <chain/Chain.hpp>
+#include <chain/chain.hpp>
 
 using Grid = std::vector<std::vector<char>>;
 

@@ -4,7 +4,7 @@
 #include <string_view>
 #include <string>
 
-#include <chain/Chain.hpp>
+#include <chain/chain.hpp>
 
 enum class CommandEnum
 {

@@ -7,7 +7,7 @@
 #include <vector>
 
 #include <lib/FileUtil.h>
-#include <chain/Chain.hpp>
+#include <chain/chain.hpp>
 
 using namespace std::string_literals;
 

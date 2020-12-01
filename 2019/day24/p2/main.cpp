@@ -5,7 +5,7 @@
 #include <map>
 
 #include <lib/FileUtil.h>
-#include <chain/Chain.hpp>
+#include <chain/chain.hpp>
 
 using Grid = std::array<char, 25>;
 using World = std::map<int64_t, Grid>;

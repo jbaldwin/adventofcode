@@ -4,7 +4,7 @@
 #include <map>
 
 #include <lib/FileUtil.h>
-#include <chain/Chain.hpp>
+#include <chain/chain.hpp>
 #include <lib/Algorithms.hpp>
 
 enum class Content

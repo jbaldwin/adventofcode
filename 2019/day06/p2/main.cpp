@@ -5,7 +5,7 @@
 #include <set>
 #include <fstream>
 
-#include <chain/Chain.hpp>
+#include <chain/chain.hpp>
 
 struct Orbit
 {

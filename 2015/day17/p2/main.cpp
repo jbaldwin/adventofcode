@@ -6,7 +6,7 @@
 #include <map>
 
 #include <lib/FileUtil.h>
-#include <chain/Chain.hpp>
+#include <chain/chain.hpp>
 
 auto fill(
     std::vector<int64_t>& remaining,
