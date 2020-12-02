@@ -22,12 +22,16 @@ int main(int argc, char* argv[])
         numbers.push_back(std::stoul(std::string{line}));
     }
 
-    for(const auto& n1 : numbers)
+    size_t size = numbers.size();
+    for(size_t a = 0 ; a < size - 2; a++)
     {
-        for(const auto& n2 : numbers)
+        auto n1 = numbers[a];
+        for(size_t b = a + 1; b < size - 1; b++)
         {
-            for(const auto& n3 : numbers)
+            auto n2 = numbers[b];
+            for(size_t c = b + 1; c < size; c++)
             {
+                auto n3 = numbers[c];
                 if(n1 + n2 + n3 == 2020)
                 {
                     auto product = n1 * n2 * n3;
