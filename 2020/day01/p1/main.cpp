@@ -19,7 +19,7 @@ int main(int argc, char* argv[])
     std::vector<uint64_t> numbers{};
     for(const auto& line : chain::str::split(contents, '\n'))
     {
-        numbers.push_back(std::stoul(std::string{line}));
+        numbers.push_back(chain::str::to_number<uint64_t>(line).value_or(0));
     }
 
     // The input could contain a number like 1010 which would fail
