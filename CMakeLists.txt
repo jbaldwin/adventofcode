@@ -155,3 +155,6 @@ project_setup(2019 23 2)
 project_setup(2019 24 1)
 project_setup(2019 24 2)
 project_setup(2019 25 1)
+
+project_setup(2020 01 1)
+project_setup(2020 01 2)
