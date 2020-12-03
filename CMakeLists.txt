@@ -112,6 +112,8 @@ project_setup(2016 05 1)
 project_setup(2016 05 2)
 project_setup(2016 06 1)
 project_setup(2016 06 2)
+project_setup(2016 07 1)
+project_setup(2016 07 2)
 
 project_setup(2019 01 1)
 project_setup(2019 01 2)
