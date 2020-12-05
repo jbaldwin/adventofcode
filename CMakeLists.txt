@@ -19,7 +19,7 @@ add_library(${PROJECT_NAME}
 
     2019/intcode/Interpreter.hpp
 )
-target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_17)
+target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_20)
 target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 
 function(project_setup year day problem)
@@ -33,7 +33,7 @@ function(project_setup year day problem)
         PROPERTIES
         RUNTIME_OUTPUT_DIRECTORY ${project_bin_dir}
     )
-    target_compile_features(${name} PRIVATE cxx_std_17)
+    target_compile_features(${name} PRIVATE cxx_std_20)
     target_link_libraries(${name} PRIVATE
         adventofcode
         pthread
@@ -172,3 +172,5 @@ project_setup(2020 03 1)
 project_setup(2020 03 2)
 project_setup(2020 04 1)
 project_setup(2020 04 2)
+project_setup(2020 05 1)
+project_setup(2020 05 2)
