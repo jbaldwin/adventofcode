@@ -74,13 +74,7 @@ int main(int argc, char* argv[])
             }
 
             y_pos += y_slope;
-            x_pos += x_slope;
-
-            // Wrap around if overflowed.
-            if(x_pos >= map[0].size())
-            {
-                x_pos -= map[0].size();
-            }
+            x_pos = (x_pos + x_slope) % map[0].size();
         }
 
         print_map(map);

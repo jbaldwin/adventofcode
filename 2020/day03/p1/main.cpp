@@ -60,13 +60,7 @@ int main(int argc, char* argv[])
         }
 
         y_pos += 1;
-        x_pos += 3;
-
-        // Wrap around if overflowed.
-        if(x_pos >= map[0].size())
-        {
-            x_pos -= map[0].size();
-        }
+        x_pos = (x_pos + 3) % map[0].size();
     }
 
     print_map(map);
