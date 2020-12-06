@@ -116,6 +116,8 @@ project_setup(2016 07 1)
 project_setup(2016 07 2)
 project_setup(2016 08 1)
 # project_setup(2016 08 2) # No new code for 08.2
+project_setup(2016 09 1)
+project_setup(2016 09 2)
 
 project_setup(2019 01 1)
 project_setup(2019 01 2)
