@@ -26,16 +26,21 @@ static auto permutate(std::vector<uint64_t> remaining, std::vector<uint64_t> set
         }
 
         size_t count{0};
-        for(size_t i = 0; i < remaining.size(); ++i)
+        for(int64_t i = remaining.size() - 1; i >= 0; --i)
         {
             // Loop through remaining and any that are <= 3 away generate a new valid set
             // and valid remaining and permutate on each valid new combination.
             if(remaining[i] - set.back() <= 3)
             {
+                // Copy the item that is identified as valid into the current working set.
                 auto s_copy = set;
                 s_copy.emplace_back(remaining[i]);
+
+                // Subtract this item (and all previously identified items) from the remaining
+                // set prior to calling permutate for this new combination.  This is effectively
+                // calling pop_back() N times for each identified item that has been valid so far.
                 auto r_copy = remaining;
-                r_copy.erase(r_copy.begin(), r_copy.begin() + i + 1);
+                r_copy.erase(r_copy.end() - (r_copy.size() - i), r_copy.end());
 
                 count += permutate(std::move(r_copy), std::move(s_copy));
             }
@@ -72,7 +77,12 @@ int main(int argc, char* argv[])
     std::sort(adaptors.begin(), adaptors.end());
     adaptors.emplace_back(adaptors.back() + 3);
 
-    std::cout << "Total permutations = " << permutate(adaptors, {0}) << "\n";
+    // Reverse the adaptors so the algorithm can pop_back() from the vector to reduce shifting
+    // elements when an item is moved from the remaining vector to the set vector.
+    std::reverse(adaptors.begin(), adaptors.end());
+
+    auto permutations = permutate(adaptors, {0});
+    std::cout << "Total permutations = " << permutations << "\n";
 
     return 0;
 }
