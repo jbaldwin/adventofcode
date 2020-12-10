@@ -26,23 +26,18 @@ static auto permutate(std::vector<uint64_t> remaining, std::vector<uint64_t> set
         }
 
         size_t count{0};
-        for(int64_t i = remaining.size() - 1; i >= 0; --i)
+        while(!remaining.empty())
         {
-            // Loop through remaining and any that are <= 3 away generate a new valid set
-            // and valid remaining and permutate on each valid new combination.
-            if(remaining[i] - set.back() <= 3)
+            // For each item in remaining that can connect to the last item in set issue
+            // a permutation for this combination.
+            auto value = remaining.back();
+            if(value - set.back() <= 3)
             {
-                // Copy the item that is identified as valid into the current working set.
                 auto s_copy = set;
-                s_copy.emplace_back(remaining[i]);
+                s_copy.emplace_back(remaining.back());
+                remaining.pop_back();
 
-                // Subtract this item (and all previously identified items) from the remaining
-                // set prior to calling permutate for this new combination.  This is effectively
-                // calling pop_back() N times for each identified item that has been valid so far.
-                auto r_copy = remaining;
-                r_copy.erase(r_copy.end() - (r_copy.size() - i), r_copy.end());
-
-                count += permutate(std::move(r_copy), std::move(s_copy));
+                count += permutate(remaining, std::move(s_copy));
             }
             else
             {
