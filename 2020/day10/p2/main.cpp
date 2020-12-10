@@ -33,11 +33,11 @@ static auto permutate(std::vector<uint64_t> remaining, std::vector<uint64_t> set
             auto value = remaining.back();
             if(value - set.back() <= 3)
             {
-                auto s_copy = set;
-                s_copy.emplace_back(remaining.back());
                 remaining.pop_back();
 
-                count += permutate(remaining, std::move(s_copy));
+                set.push_back(value);
+                count += permutate(remaining, set);
+                set.pop_back();
             }
             else
             {
