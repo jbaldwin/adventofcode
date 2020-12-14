@@ -5,7 +5,7 @@
 
 #include <lib/FileUtil.h>
 #include <chain/chain.hpp>
-#include <lib/Containers.hpp>
+#include <lib/containers.hpp>
 
 using Vec3 = containers::Vec3<int64_t>;
 

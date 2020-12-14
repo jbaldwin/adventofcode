@@ -3,7 +3,7 @@
 
 #include <lib/FileUtil.h>
 #include <chain/chain.hpp>
-#include <lib/Containers.hpp>
+#include <lib/containers.hpp>
 
 using Triangle = containers::Vec3<uint64_t>;
 

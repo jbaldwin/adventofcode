@@ -1,15 +1,15 @@
 #include <iostream>
 #include <array>
 
-#include <lib/Containers.hpp>
+#include <lib/containers.hpp>
 #include <lib/FileUtil.h>
 #include <chain/chain.hpp>
 
-using Vec2 = containers::Vec2<int64_t>;
+using vec2 = containers::vec2<int64_t>;
 
 auto in_bounds(
-    const Vec2& pos,
-    const Vec2& dir
+    const vec2& pos,
+    const vec2& dir
     ) -> bool
 {
     auto loc = pos + dir;
@@ -34,7 +34,7 @@ int main(int argc, char* argv[])
 
     std::string code{};
 
-    Vec2 pos{1, 1};
+    vec2 pos{1, 1};
 
     auto contents = file::read(args[1]);
 
@@ -50,7 +50,7 @@ int main(int argc, char* argv[])
                 case 'U':
                 {
                     std::cout << 'U';
-                    Vec2 dir{-1, 0};
+                    vec2 dir{-1, 0};
                     if(in_bounds(pos, dir))
                     {
                         pos += dir;
@@ -60,7 +60,7 @@ int main(int argc, char* argv[])
                 case 'D':
                 {
                     std::cout << 'D';
-                    Vec2 dir{1, 0};
+                    vec2 dir{1, 0};
                     if(in_bounds(pos, dir))
                     {
                         pos += dir;
@@ -70,7 +70,7 @@ int main(int argc, char* argv[])
                 case 'L':
                 {
                     std::cout << 'L';
-                    Vec2 dir{0, -1};
+                    vec2 dir{0, -1};
                     if(in_bounds(pos, dir))
                     {
                         pos += dir;
@@ -80,7 +80,7 @@ int main(int argc, char* argv[])
                 case 'R':
                 {
                     std::cout << 'R';
-                    Vec2 dir{0, 1};
+                    vec2 dir{0, 1};
                     if(in_bounds(pos, dir))
                     {
                         pos += dir;

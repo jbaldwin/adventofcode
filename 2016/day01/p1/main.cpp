@@ -5,7 +5,7 @@
 
 #include <lib/FileUtil.h>
 #include <chain/chain.hpp>
-#include <lib/Containers.hpp>
+#include <lib/containers.hpp>
 
 enum class Direction
 {
@@ -63,7 +63,7 @@ int main(int argc, char* argv[])
     using namespace containers;
 
     Direction dir{Direction::NORTH};
-    Vec2<int64_t> pos{0, 0};
+    vec2<int64_t> pos{0, 0};
     std::cout << "pos=" << pos << "\n";
 
     for(const auto& move : movements)

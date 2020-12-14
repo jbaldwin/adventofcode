@@ -13,7 +13,7 @@ project(adventofcode)
 add_library(${PROJECT_NAME}
     lib/Algorithms.hpp
     lib/AStar.hpp
-    lib/Containers.hpp
+    lib/containers.hpp
     lib/Crypto.h
     lib/FileUtil.h lib/FileUtil.cpp
 
@@ -194,3 +194,5 @@ project_setup(2020 10 1)
 project_setup(2020 10 2)
 project_setup(2020 11 1)
 project_setup(2020 11 2)
+project_setup(2020 12 1)
+project_setup(2020 12 2)

@@ -6,7 +6,7 @@
 
 #include <lib/FileUtil.h>
 #include <chain/chain.hpp>
-#include <lib/Containers.hpp>
+#include <lib/containers.hpp>
 
 using namespace containers;
 
@@ -80,10 +80,10 @@ static std::map<Direction, std::map<Turn, Direction>> g_turns
 };
 
 auto walk(
-    Vec2<int64_t>& pos,
+    vec2<int64_t>& pos,
     Direction dir,
     int64_t blocks,
-    std::set<Vec2<int64_t>>& visited
+    std::set<vec2<int64_t>>& visited
 ) -> bool
 {
     for(std::size_t i = 0; i < blocks; ++i)
@@ -133,10 +133,10 @@ int main(int argc, char* argv[])
         movements.emplace_back(Movement{turn, blocks});
     }
 
-    std::set<Vec2<int64_t>> visited{};
+    std::set<vec2<int64_t>> visited{};
 
     Direction dir{Direction::NORTH};
-    Vec2<int64_t> pos{0, 0};
+    vec2<int64_t> pos{0, 0};
     std::cout << "pos=" << pos << "\n";
 
     for(const auto& move : movements)
