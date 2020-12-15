@@ -6,7 +6,7 @@
 
 #include <lib/file_util.hpp>
 #include <chain/chain.hpp>
-#include <lib/Algorithms.hpp>
+#include <lib/algorithms.hpp>
 
 struct Person
 {

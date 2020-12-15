@@ -8,7 +8,7 @@
 
 #include <lib/file_util.hpp>
 #include <chain/chain.hpp>
-#include <lib/Algorithms.hpp>
+#include <lib/algorithms.hpp>
 
 auto read_instructions(std::string_view file_name) -> std::vector<int64_t>
 {

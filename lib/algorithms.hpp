@@ -6,11 +6,11 @@
 namespace algo
 {
 
-template<typename ContainerType>
+template<typename container_type>
 auto _permutate(
-    ContainerType& data,
+    container_type& data,
     std::size_t k,
-    std::function<void(const ContainerType&)>& callback
+    const std::function<void(const container_type&)>& callback
 )
 {
     if(k == 1)
@@ -37,23 +37,23 @@ auto _permutate(
     }
 }
 
-template<typename ContainerType>
+template<typename container_type>
 auto permutate(
-    ContainerType data,
-    std::function<void(const ContainerType&)> callback
+    container_type data,
+    const std::function<void(const container_type&)>& callback
 ) -> void
 {
     // https://en.wikipedia.org/wiki/Heap's_algorithm
-    _permutate<ContainerType>(data, std::size(data), callback);
+    _permutate<container_type>(data, std::size(data), callback);
 }
 
-template<typename ContainerType1, typename ContainerType2>
+template<typename container_type_1, typename container_type_2>
 auto _combinate(
-    const ContainerType1& data,
-    std::function<void(const ContainerType2&)> callback,
+    const container_type_1& data,
+    const std::function<void(const container_type_2&)>& callback,
     std::size_t len,
     std::size_t start_pos,
-    ContainerType2& result
+    container_type_2& result
 ) -> void
 {
     if(len == 0)
@@ -69,15 +69,15 @@ auto _combinate(
     }
 }
 
-template<typename ContainerType1, typename ContainerType2>
+template<typename container_type_1, typename container_type_2>
 auto combinate(
-    const ContainerType1& data,
+    const container_type_1& data,
     std::size_t combo_size,
-    std::function<void(const ContainerType2&)> callback
+    const std::function<void(const container_type_2&)>& callback
 ) -> void
 {
-    ContainerType2 result{};
-    for(std::size_t i = 0; i < combo_size; ++i) result.push_back({});
+    container_type_2 result{};
+    result.resize(combo_size);
     _combinate(data, callback, combo_size, 0, result);
 }
 
