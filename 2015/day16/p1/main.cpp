@@ -3,7 +3,7 @@
 #include <string>
 #include <optional>
 
-#include <lib/FileUtil.h>
+#include <lib/file_util.hpp>
 #include <chain/chain.hpp>
 
 struct Info

@@ -3,7 +3,7 @@
 #include <vector>
 #include <limits>
 
-#include <lib/FileUtil.h>
+#include <lib/file_util.hpp>
 
 int main(int argc, char* argv[])
 {

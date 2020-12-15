@@ -4,7 +4,7 @@
 #include <array>
 #include <map>
 
-#include <lib/FileUtil.h>
+#include <lib/file_util.hpp>
 #include <chain/chain.hpp>
 
 using Grid = std::array<char, 25>;

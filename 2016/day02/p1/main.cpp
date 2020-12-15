@@ -2,7 +2,7 @@
 #include <array>
 
 #include <lib/containers.hpp>
-#include <lib/FileUtil.h>
+#include <lib/file_util.hpp>
 #include <chain/chain.hpp>
 
 using vec2 = containers::vec2<int64_t>;

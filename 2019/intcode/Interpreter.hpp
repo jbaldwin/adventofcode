@@ -6,7 +6,7 @@
 #include <optional>
 #include <iostream>
 
-#include <lib/FileUtil.h>
+#include <lib/file_util.hpp>
 #include <chain/chain.hpp>
 
 namespace intcode

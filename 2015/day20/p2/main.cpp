@@ -2,7 +2,7 @@
 #include <map>
 #include <string>
 
-#include <lib/FileUtil.h>
+#include <lib/file_util.hpp>
 #include <chain/chain.hpp>
 
 int main(int argc, char* argv[])

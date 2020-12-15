@@ -6,7 +6,7 @@
 #include <map>
 #include <array>
 
-#include <lib/FileUtil.h>
+#include <lib/file_util.hpp>
 #include <chain/chain.hpp>
 #include <lib/Algorithms.hpp>
 

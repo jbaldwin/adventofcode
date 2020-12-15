@@ -6,7 +6,7 @@
 #include <optional>
 #include <vector>
 
-#include <lib/FileUtil.h>
+#include <lib/file_util.hpp>
 #include <chain/chain.hpp>
 
 using namespace std::string_literals;

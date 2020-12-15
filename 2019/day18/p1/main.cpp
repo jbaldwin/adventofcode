@@ -7,7 +7,7 @@
 #include <list>
 
 #include <lib/AStar.hpp>
-#include <lib/FileUtil.h>
+#include <lib/file_util.hpp>
 
 struct Point
 {

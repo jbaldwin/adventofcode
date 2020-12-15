@@ -4,7 +4,7 @@
 #include <map>
 #include <set>
 
-#include <lib/FileUtil.h>
+#include <lib/file_util.hpp>
 #include <chain/chain.hpp>
 
 int main(int argc, char* argv[])

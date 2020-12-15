@@ -5,7 +5,7 @@
 #include <cmath>
 
 #include <lib/AStar.hpp>
-#include <lib/FileUtil.h>
+#include <lib/file_util.hpp>
 
 static std::array<std::pair<int64_t, int64_t>, 4> movements = {
     std::pair{1, 0},

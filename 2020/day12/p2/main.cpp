@@ -1,4 +1,4 @@
-#include <lib/FileUtil.h>
+#include <lib/file_util.hpp>
 #include <lib/containers.hpp>
 #include <chain/chain.hpp>
 
@@ -14,7 +14,7 @@ enum class rotate
     right
 };
 
-auto rotate_point(const vec2& ship, vec2& waypoint, rotate r, int64_t degrees) -> void
+auto rotate_point(vec2& waypoint, rotate r, int64_t degrees) -> void
 {
     switch(r)
     {
@@ -108,10 +108,10 @@ int main(int argc, char* argv[])
                 waypoint.x -= v;
                 break;
             case 'L':
-                rotate_point(ship, waypoint, rotate::left, v);
+                rotate_point(waypoint, rotate::left, v);
                 break;
             case 'R':
-                rotate_point(ship, waypoint, rotate::right, v);
+                rotate_point(waypoint, rotate::right, v);
                 break;
             case 'F':
                 ship.x += (waypoint.x * v);

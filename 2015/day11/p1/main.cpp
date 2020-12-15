@@ -2,7 +2,7 @@
 #include <vector>
 #include <string>
 
-#include <lib/FileUtil.h>
+#include <lib/file_util.hpp>
 
 auto password_contains_illegal_chars(
     const std::string& password

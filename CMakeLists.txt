@@ -15,7 +15,7 @@ add_library(${PROJECT_NAME}
     lib/AStar.hpp
     lib/containers.hpp
     lib/Crypto.h
-    lib/FileUtil.h lib/FileUtil.cpp
+    lib/file_util.hpp lib/file_util.cpp
 
     2019/intcode/Interpreter.hpp
 )
@@ -196,3 +196,5 @@ project_setup(2020 11 1)
 project_setup(2020 11 2)
 project_setup(2020 12 1)
 project_setup(2020 12 2)
+project_setup(2020 13 1)
+project_setup(2020 13 2)

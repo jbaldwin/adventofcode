@@ -1,7 +1,7 @@
 #include <iostream>
 #include <vector>
 
-#include <lib/FileUtil.h>
+#include <lib/file_util.hpp>
 
 auto fft_apply_pattern(
     const std::vector<int64_t>& input,
