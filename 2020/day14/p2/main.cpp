@@ -8,6 +8,7 @@
 #include <array>
 #include <map>
 #include <bitset>
+#include <cmath>
 
 int main(int argc, char* argv[])
 {
@@ -61,35 +62,29 @@ int main(int argc, char* argv[])
                 }
             }
 
-            std::string input;
-            for(size_t i = 0; i < xs; ++i)
+            uint64_t max = std::pow(2ul, xs);
+
+            for(uint64_t i = 0; i < max; ++i)
             {
-                input += "01";
-            }
+                auto address = result;
+                auto combination = std::bitset<36>(i).to_string();
 
-            algo::combinate<std::string, std::string>(
-                input,
-                xs,
-                [&](std::string combination) {
-                    std::string address = result;
-
-                    size_t ci{0};
-                    size_t ai{0};
-                    while(ci < xs)
+                size_t ci{0};
+                size_t ai{0};
+                while(ci < xs)
+                {
+                    while(address[ai] != 'X')
                     {
-                        while(address[ai] != 'X')
-                        {
-                            ++ai;
-                        }
-
-                        address[ai] = combination[ci];
-                        ++ci;
+                        ++ai;
                     }
 
-                    auto addr_d = std::bitset<36>(address).to_ulong();
-                    memory[addr_d] = value;
+                    address[ai] = combination[35 - ci];
+                    ++ci;
                 }
-            );
+
+                auto addr_d = std::bitset<36>(address).to_ulong();
+                memory[addr_d] = value;
+            }
         }
     }
 
