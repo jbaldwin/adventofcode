@@ -202,3 +202,5 @@ project_setup(2020 14 1)
 project_setup(2020 14 2)
 project_setup(2020 15 1)
 # project_setup(2020 15 2) # No new code for 15.2
+project_setup(2020 16 1)
+project_setup(2020 16 2)
