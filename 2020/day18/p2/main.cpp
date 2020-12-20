@@ -81,81 +81,95 @@ auto parse(std::string_view expr) -> std::deque<std::variant<operator_t, bracket
     return nodes;
 }
 
+auto eval_scope(std::deque<std::variant<operator_t, int64_t>> scope) -> int64_t
+{
+    // Scan left to right and do additions in this scope first.  It would be way better
+    // to actually generate a proper parse tree, but this should work for AOC.
+    bool add_found{true};
+    while(add_found)
+    {
+        add_found = false;
+        for(size_t i = 1; i < scope.size(); i += 2)
+        {
+            auto op = std::get<operator_t>(scope[i]);
+            if(op == operator_t::addition)
+            {
+                add_found = true;
+                auto lvalue = std::get<int64_t>(scope[i - 1]);
+                auto rvalue = std::get<int64_t>(scope[i + 1]);
+
+                --i;
+                scope.erase(scope.begin() + i);
+                scope.erase(scope.begin() + i);
+                scope.erase(scope.begin() + i);
+
+                scope.emplace(scope.begin() + i, lvalue + rvalue);
+                break;
+            }
+        }
+    }
+
+    // Now scan left to right and do multiplications.
+    while(scope.size() >= 3)
+    {
+        auto lvalue = std::get<int64_t>(scope[0]);
+        auto op = std::get<operator_t>(scope[1]);
+        auto rvalue = std::get<int64_t>(scope[2]);
+
+        scope.pop_front();
+        scope.pop_front();
+        scope.pop_front();
+
+        scope.emplace_front(lvalue * rvalue);
+    }
+
+    return std::get<int64_t>(scope.front());
+}
+
 auto eval(std::deque<std::variant<operator_t, bracket, int64_t>>& tokens) -> int64_t
 {
     std::deque<std::deque<std::variant<operator_t, int64_t>>> scopes{};
     scopes.emplace_back();
 
-    while(true)
+    while(!tokens.empty())
     {
         auto& scope = scopes.back();
 
-        // Because expressions are evaluated from left to right calculate evaluate values as they
-        // are traversed immediately.
-        if(scope.size() == 3)
+        auto token = tokens.front();
+        tokens.pop_front();
+
+        if(std::holds_alternative<int64_t>(token))
         {
-            auto lvalue = std::get<int64_t>(scope[0]);
-            auto op = std::get<operator_t>(scope[1]);
-            auto rvalue = std::get<int64_t>(scope[2]);
-
-            scope.clear();
-
-            int64_t result;
-            switch(op)
-            {
-                case operator_t::addition:
-                    result = lvalue + rvalue;
-                    break;
-                case operator_t::multiply:
-                    result = lvalue * rvalue;
-                    break;
-            }
-
-            scope.emplace_front(result);
+            scope.emplace_back(std::get<int64_t>(token));
+        }
+        else if(std::holds_alternative<operator_t>(token))
+        {
+            scope.emplace_back(std::get<operator_t>(token));
         }
         else
         {
-            auto token = tokens.front();
-            tokens.pop_front();
-
-            if(std::holds_alternative<int64_t>(token))
+            auto b = std::get<bracket>(token);
+            switch(b)
             {
-                scope.emplace_back(std::get<int64_t>(token));
-            }
-            else if(std::holds_alternative<operator_t>(token))
-            {
-                scope.emplace_back(std::get<operator_t>(token));
-            }
-            else
-            {
-                auto b = std::get<bracket>(token);
-                switch(b)
+                case bracket::open:
+                    scopes.emplace_back();
+                    break;
+                case bracket::close:
                 {
-                    case bracket::open:
-                        scopes.emplace_back();
-                        break;
-                    case bracket::close:
-                        // On close grab the current scope's result value and remove the scope
-                        // from the stack of scopes.
-                        auto value = scope.front();
-                        scopes.pop_back();
+                    auto scope_result = eval_scope(scope);
+                    scopes.pop_back();
+                    // On close grab the current scope's result value and remove the scope
+                    // from the stack of scopes.
 
-                        // Push the result into the end of the parent scope.
-                        scopes.back().emplace_back(value);
-                        break;
+                    // Push the result into the end of the parent scope.
+                    scopes.back().emplace_back(scope_result);
                 }
+                    break;
             }
-        }
-
-        // When there are no tokens left, and theres only 1 scope with 1 value then the expression
-        // is copmleted.
-        if(tokens.empty() && scopes.size() == 1 && scopes.front().size() == 1)
-        {
-            break;
         }
     }
 
-    return std::get<int64_t>(scopes.front().front());
+    return eval_scope(scopes.back());
 }
 
 int main(int argc, char* argv[])
