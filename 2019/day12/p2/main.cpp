@@ -8,19 +8,19 @@
 #include <lib/algorithms.hpp>
 #include <lib/containers.hpp>
 
-using Vec3 = containers::Vec3<int64_t>;
+using vec3 = containers::vec3<int64_t>;
 
 struct Moon
 {
-    Moon(Vec3 positions, Vec3 velocities)
+    Moon(vec3 positions, vec3 velocities)
         : pos(std::move(positions))
         , vel(std::move(velocities))
     {
 
     }
 
-    Vec3 pos;
-    Vec3 vel;
+    vec3 pos;
+    vec3 vel;
 
     auto operator==(const Moon& other) const -> bool
     {
@@ -64,12 +64,12 @@ auto load_moons(
         auto z_split = chain::str::split(serialized_xyz[2], '=');
         
         moons.emplace_back(
-            Vec3{
+            vec3{
                 std::stol(std::string{x_split[1]}),
                 std::stol(std::string{y_split[1]}),
                 std::stol(std::string{z_split[1]})
             },
-            Vec3{0, 0, 0}
+            vec3{0, 0, 0}
         );
     }
 
@@ -88,11 +88,11 @@ auto gravity(
 
 auto calc_periods(
     std::vector<Moon>& moons
-) -> Vec3
+) -> vec3
 {
     auto orig_moons = moons;
 
-    Vec3 periods{};
+    vec3 periods{};
 
     auto find_period = [&](size_t col) -> void {
         while(true)

@@ -87,19 +87,19 @@ struct vec2
     }
 };
 
-template<typename IntType>
-struct Vec3
+template<typename type>
+struct vec3
 {
-    IntType x{0};
-    IntType y{0};
-    IntType z{0};
+    type x{0};
+    type y{0};
+    type z{0};
 
-    Vec3() = default;
+    vec3() = default;
 
-    Vec3(
-        IntType x_param,
-        IntType y_param,
-        IntType z_param
+    vec3(
+        type x_param,
+        type y_param,
+        type z_param
     )
         : x(x_param)
         , y(y_param)
@@ -108,7 +108,7 @@ struct Vec3
 
     }
 
-    auto operator[](size_t i) -> IntType&
+    auto operator[](size_t i) -> type&
     {
         switch(i)
         {
@@ -119,7 +119,7 @@ struct Vec3
         }
     }
 
-    auto operator[](IntType i) const -> const IntType&
+    auto operator[](type i) const -> const type&
     {
         switch(i)
         {
@@ -130,29 +130,29 @@ struct Vec3
         }
     }
 
-    auto operator==(const Vec3& other) const -> bool
+    auto operator==(const vec3& other) const -> bool
     {
         return x == other.x && y == other.y && z == other.z;
     }
 
-    auto operator<(const Vec3& other) const -> bool
+    auto operator<(const vec3& other) const -> bool
     {
         return std::tie(x, y, z) < std::tie(other.x, other.y, other.z);
     }
 
-    auto operator+(const Vec3& other) const -> Vec3
+    auto operator+(const vec3& other) const -> vec3
     {
-        return Vec3{x + other.x, y + other.y, z + other.z};
+        return vec3{x + other.x, y + other.y, z + other.z};
     }
 
-    auto operator+=(const Vec3& other) -> void
+    auto operator+=(const vec3& other) -> void
     {
         x += other.x;
         y += other.y;
         z += other.z;
     }
 
-    friend auto operator<<(std::ostream& os, const Vec3& v) -> std::ostream&
+    friend auto operator<<(std::ostream& os, const vec3& v) -> std::ostream&
     {
         os << "[";
         os << "x=" << v.x;
@@ -162,4 +162,48 @@ struct Vec3
         return os;
     }
 };
+
+template<typename type>
+class vec4
+{
+public:
+
+    type x{0};
+    type y{0};
+    type z{0};
+    type w{0};
+
+    vec4() = default;
+
+    vec4(
+        type x_param,
+        type y_param,
+        type z_param,
+        type w_param
+    ) : x(x_param),
+        y(y_param),
+        z(z_param),
+        w(w_param)
+    {
+
+    }
+
+    auto operator==(const vec4& other) const -> bool
+    {
+        return x == other.x && y == other.y && z == other.z && w == other.w;
+    }
+
+    friend auto operator<<(std::ostream& os, const vec4& v) -> std::ostream&
+    {
+        os << "[";
+        os << "x=" << v.x;
+        os << ", y=" << v.y;
+        os << ", z=" << v.z;
+        os << ", w=" << v.w;
+        os << "]";
+        return os;
+    }
+};
+
+
 } // namepsace containers

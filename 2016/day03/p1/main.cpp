@@ -5,7 +5,7 @@
 #include <chain/chain.hpp>
 #include <lib/containers.hpp>
 
-using Triangle = containers::Vec3<uint64_t>;
+using Triangle = containers::vec3<uint64_t>;
 
 int main(int argc, char* argv[])
 {
