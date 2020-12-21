@@ -53,18 +53,11 @@ auto orientation_flip(orientation o) -> orientation
 struct tile
 {
     tile_id id{0};
-    orientation o;
     image img{};
-
-    std::vector<std::pair<tile_id, orientation>> left{};
-    std::vector<std::pair<tile_id, orientation>> right{};
-    std::vector<std::pair<tile_id, orientation>> top{};
-    std::vector<std::pair<tile_id, orientation>> bottom{};
 
     friend auto operator<<(std::ostream& os, const tile& t) -> std::ostream&
     {
         os << "Tile " << t.id << ":\n";
-        os << "Orientation: " << to_string(t.o) << ":\n";
         for(const auto& row : t.img)
         {
             for(const auto& col : row)
@@ -74,71 +67,11 @@ struct tile
             os << "\n";
         }
 
-        os << "left [" << chain::str::map_join(
-            t.left,
-            ", ",
-            [](const auto& pair) {
-                const auto& [tid, o] = pair;
-                return std::to_string(tid) + "-" + to_string(o);
-            }
-        ) << "]\n";
-
-        os << "right [" << chain::str::map_join(
-            t.right,
-            ", ",
-            [](const auto& pair) {
-                const auto& [tid, o] = pair;
-                return std::to_string(tid) + "-" + to_string(o);
-            }
-        ) << "]\n";
-
-        os << "top [" << chain::str::map_join(
-            t.top,
-            ", ",
-            [](const auto& pair) {
-                const auto& [tid, o] = pair;
-                return std::to_string(tid) + "-" + to_string(o);
-            }
-        ) << "]\n";
-
-        os << "bottom [" << chain::str::map_join(
-            t.bottom,
-            ", ",
-            [](const auto& pair) {
-                const auto& [tid, o] = pair;
-                return std::to_string(tid) + "-" + to_string(o);
-            }
-        ) << "]\n";
-
         return os;
     }
 };
 
-auto tile_by_orientation(
-    const std::map<tile_id, std::array<tile, 4>>& tiles,
-    const tile_id& tid,
-    const orientation& o) -> const tile&
-{
-    auto tile_set_iter = tiles.find(tid);
-    if(tile_set_iter == tiles.end())
-    {
-        throw std::runtime_error{"invalid tile id " + std::to_string(tid)};
-    }
-
-    const auto& tile_set = tile_set_iter->second;
-
-    switch(o)
-    {
-        case orientation::degrees_0: return tile_set[0];
-        case orientation::degrees_90: return tile_set[1];
-        case orientation::degrees_180: return tile_set[2];
-        case orientation::degrees_270: return tile_set[3];
-    }
-
-    throw std::runtime_error{"invalid tile orientation"};
-}
-
-auto rotate_tile(const tile& t) -> tile
+auto tile_rotate_90(const tile& t) -> tile
 {
     tile t1{};
     t1.id = t.id;
@@ -156,9 +89,48 @@ auto rotate_tile(const tile& t) -> tile
     return t1;
 }
 
-auto parse_input(std::string_view contents) -> std::map<tile_id, std::array<tile, 4>>
+
+// X -> Y
+auto tile_flip_horizontal(const tile& t) -> tile
 {
-    std::map<tile_id, std::array<tile, 4>> tiles{};
+    tile t1{};
+    t1.id = t.id;
+
+    for(size_t x = 0; x < 10; ++x)
+    {
+        for(size_t y = 0; y < 10; ++y)
+        {
+            t1.img[x][9 - y] = t.img[x][y];
+        }
+    }
+
+    return t1;
+}
+
+// X
+// |
+// V
+// Y
+
+auto tile_flip_vertical(const tile& t) -> tile
+{
+    tile t1{};
+    t1.id = t.id;
+
+    for(size_t x = 0; x < 10; ++x)
+    {
+        for(size_t y = 0; y < 10; ++y)
+        {
+            t1.img[9 - x][y] = t.img[x][y];
+        }
+    }
+
+    return t1;
+}
+
+auto parse_input(std::string_view contents) -> std::map<tile_id, tile>
+{
+    std::map<tile_id, tile> tiles{};
 
     auto tile_parts = chain::str::split(contents, "Tile ");
 
@@ -169,12 +141,11 @@ auto parse_input(std::string_view contents) -> std::map<tile_id, std::array<tile
             continue;
         }
 
-        tile t1{};
+        tile t{};
 
         auto id_img_parts = chain::str::split(tile_part, ":\n");
 
-        t1.id = chain::str::to_number<tile_id>(id_img_parts[0]).value();
-        t1.o = orientation::degrees_0;
+        t.id = chain::str::to_number<tile_id>(id_img_parts[0]).value();
         auto img_part = id_img_parts[1];
 
         size_t row_idx{0};
@@ -188,21 +159,13 @@ auto parse_input(std::string_view contents) -> std::map<tile_id, std::array<tile
             size_t col_idx{0};
             for(const auto& c : row)
             {
-                t1.img[row_idx][col_idx] = c;
+                t.img[row_idx][col_idx] = c;
                 ++col_idx;
             }
             ++row_idx;
         }
 
-        auto t2 = rotate_tile(t1);
-        auto t3 = rotate_tile(t2);
-        auto t4 = rotate_tile(t3);
-
-        t2.o = orientation::degrees_90;
-        t3.o = orientation::degrees_180;
-        t4.o = orientation::degrees_270;
-
-        tiles.emplace(t1.id, std::array<tile, 4>{t1, t2, t3, t4});
+        tiles.emplace(t.id, t);
     }
 
     return tiles;
@@ -210,7 +173,7 @@ auto parse_input(std::string_view contents) -> std::map<tile_id, std::array<tile
 
 auto top_edge_matches(const tile& t1, const tile& t2) -> bool
 {
-    // Left edge of t1 is compared to right edge of t2.
+    // Top edge of t1 is compared to bottom edge of t2.
     size_t t1_x{0};
     size_t t2_x{9};
 
@@ -388,96 +351,95 @@ auto right_edge_matches(const tile& t1, const tile& t2) -> bool
     return matched;
 }
 
-auto find_matches(
-    std::map<tile_id, std::array<tile, 4>>& tiles
-) -> void
-{
-    for(auto& [tid_current, tile_set_current] : tiles)
-    {
-        for(auto& tile_current : tile_set_current)
-        {
-            for(auto& [tid_compare, tile_set_compare] : tiles)
-            {
-                // Most definitely skip ourself!
-                if(tid_current != tid_compare)
-                {
-                    for(auto& tile_compare : tile_set_compare)
-                    {
-                        if(left_edge_matches(tile_current, tile_compare))
-                        {
-                            std::cout << "Found left edge match:\n";
-                            std::cout << tile_current << "\n";
-                            std::cout << tile_compare << "\n";
+using picture = std::vector<std::vector<tile>>;
 
-                            tile_current.left.emplace_back(tile_compare.id, tile_compare.o);
-                        }
+auto slot(
+    const std::map<tile_id, tile>& tiles,
+    std::set<tile_id> remaining_tiles,
+    std::set<tile_id> used_tiles,
+    picture p,
+    size_t x,
+    size_t y
+) -> void;
 
-                        if(right_edge_matches(tile_current, tile_compare))
-                        {
-                            std::cout << "Found right edge match:\n";
-                            std::cout << tile_current << "\n";
-                            std::cout << tile_compare << "\n";
-
-                            tile_current.right.emplace_back(tile_compare.id, tile_compare.o);
-                        }
-
-                        if(top_edge_matches(tile_current, tile_compare))
-                        {
-                            std::cout << "Found top edge match:\n";
-                            std::cout << tile_current << "\n";
-                            std::cout << tile_compare << "\n";
-
-                            tile_current.top.emplace_back(tile_compare.id, tile_compare.o);
-                        }
-
-                        if(bottom_edge_matches(tile_current, tile_compare))
-                        {
-                            std::cout << "Found bottom edge match:\n";
-                            std::cout << tile_current << "\n";
-                            std::cout << tile_compare << "\n";
-
-                            tile_current.bottom.emplace_back(tile_compare.id, tile_compare.o);
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
-
-using picture = std::vector<std::vector<std::pair<tile_id, orientation>>>;
-
-auto matching_neighbor(
-    const std::vector<std::pair<tile_id, orientation>>& neighbor_can_match,
-    tile_id tid,
-    orientation o
+auto can_slot(
+    const picture& p,
+    const tile& t,
+    size_t x,
+    size_t y
 ) -> bool
 {
-    for(const auto& [ntid, no] : neighbor_can_match)
+    if(x > 0)
     {
-        if(ntid == tid)
+        const auto& left_tile = p[x - 1][y];
+
+        if(!left_edge_matches(t, left_tile))
         {
-            if(no == o)
-            {
-                return true;
-            }
-
-            if(orientation_flip(no) == o)
-            {
-                return true;
-            }
-
-            if(no == orientation_flip(o))
-            {
-                return true;
-            }
+            return false;
         }
     }
-    return false;
+
+    if(y > 0)
+    {
+        const auto& above_tile = p[x][y - 1];
+
+        if(!top_edge_matches(t, above_tile))
+        {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+static std::stringstream g_visited_builder{};
+static std::set<std::string> g_visited{};
+static bool g_found{false};
+
+auto do_slot(
+    const std::map<tile_id, tile>& tiles,
+    std::set<tile_id> remaining_tiles,
+    std::set<tile_id> used_tiles,
+    picture p,
+    size_t x,
+    size_t y,
+    const tile& t
+) -> void
+{
+    p[x][y] = t;
+
+    remaining_tiles.erase(t.id);
+
+    auto new_y = y;
+    auto new_x = x;
+
+    new_y++;
+    if(new_y == p.size())
+    {
+        new_y = 0;
+        new_x++;
+    }
+
+    g_visited_builder.clear();
+    g_visited_builder.str("");
+    for(const auto& row : p)
+    {
+        for(const auto& t : row)
+        {
+            g_visited_builder << t.id << "-";
+        }
+    }
+
+    // This is key, otherwise there are far too many duplicates to process in any reasonable amount of time!
+    if(g_visited.emplace(g_visited_builder.str()).second)
+    {
+        slot(tiles, std::move(remaining_tiles), std::move(used_tiles), std::move(p), new_x, new_y);
+    }
+
 }
 
 auto slot(
-    const std::map<tile_id, std::array<tile, 4>>& tiles,
+    const std::map<tile_id, tile>& tiles,
     std::set<tile_id> remaining_tiles,
     std::set<tile_id> used_tiles,
     picture p,
@@ -485,15 +447,20 @@ auto slot(
     size_t y
 ) -> void
 {
+    if(g_found)
+    {
+        return;
+    }
+
     if(remaining_tiles.empty())
     {
         // found a solution?!
         std::cout << "solution:\n";
         for(const auto& row : p)
         {
-            for(const auto& [tid, o] : row)
+            for(const auto& t : row)
             {
-                std::cout << tid << "\t";
+                std::cout << t.id << "\t";
             }
             std::cout << "\n";
         }
@@ -501,16 +468,18 @@ auto slot(
 
         size_t max = p.size() - 1;
 
-        auto c1 = p[0][0].first;
-        auto c2 = p[0][max].first;
-        auto c3 = p[max][0].first;
-        auto c4 = p[max][max].first;
+        auto c1 = p[0][0].id;
+        auto c2 = p[0][max].id;
+        auto c3 = p[max][0].id;
+        auto c4 = p[max][max].id;
 
         int64_t product = c1 * c2 * c3 * c4;
 
         std::cout << "The for corners of the apocolypse "
             << c1 << " * " << c2 << " * " << c3 << " * " << c4
             << " = " << product << "\n";
+
+        g_found = true;
     }
     else
     {
@@ -518,61 +487,89 @@ auto slot(
         {
             if(used_tiles.emplace(tid).second)
             {
-                auto tile_set_iter = tiles.find(tid);
-                if(tile_set_iter == tiles.end())
+                auto t = tiles.find(tid)->second;
+
+                // Rotation 0
+                if(can_slot(p, t, x, y))
                 {
-                    throw std::runtime_error{"tile id doesn't exist" + std::to_string(tid)};
+                    do_slot(tiles, remaining_tiles, used_tiles, p, x, y, t);
                 }
-                const auto& tile_set = tile_set_iter->second;
 
-                for(const auto& tile : tile_set)
+                // Flip horizontal
+                auto t_h = tile_flip_horizontal(t);
+                if(can_slot(p, t_h, x, y))
                 {
-                    bool can_slot{true};
-                    // Need to check if top and left allow for this tile to be slotted.
-                    if(x > 0)
-                    {
-                        const auto& [x_tile_id, x_tile_o] = p[x - 1][y];
-
-                        if(!matching_neighbor(tile.left, x_tile_id, x_tile_o))
-                        {
-                            can_slot = false;
-                        }
-                    }
-
-                    if(can_slot)
-                    {
-                        if(y > 0)
-                        {
-                            const auto& [y_tile_id, y_tile_o] = p[x][y - 1];
-
-                            if(!matching_neighbor(tile.top, y_tile_id, y_tile_o))
-                            {
-                                can_slot = false;
-                            }
-                        }
-                    }
-
-                    if(can_slot)
-                    {
-                        auto p_copy = p;
-                        p_copy[x][y] = std::make_pair(tile.id, tile.o);
-
-                        auto r_copy = remaining_tiles;
-                        r_copy.erase(tile.id);
-
-                        auto new_y = y;
-                        auto new_x = x;
-
-                        new_y++;
-                        if(new_y == p.size())
-                        {
-                            new_y = 0;
-                            new_x++;
-                        }
-
-                        slot(tiles, std::move(r_copy), used_tiles, std::move(p_copy), new_x, new_y);
-                    }
+                    do_slot(tiles, remaining_tiles, used_tiles, p, x, y, t_h);
                 }
+
+                auto t_v = tile_flip_vertical(t);
+                if(can_slot(p, t_v, x, y))
+                {
+                    do_slot(tiles, remaining_tiles, used_tiles, p, x, y, t_v);
+                }
+
+                // repeat for each rotation
+
+                // Rotation 90
+                t = tile_rotate_90(t);
+                if(can_slot(p, t, x, y))
+                {
+                    do_slot(tiles, remaining_tiles, used_tiles, p, x, y, t);
+                }
+
+                // Flip horizontal
+                t_h = tile_flip_horizontal(t);
+                if(can_slot(p, t_h, x, y))
+                {
+                    do_slot(tiles, remaining_tiles, used_tiles, p, x, y, t_h);
+                }
+
+                 t_v = tile_flip_vertical(t);
+                if(can_slot(p, t_v, x, y))
+                {
+                    do_slot(tiles, remaining_tiles, used_tiles, p, x, y, t_v);
+                }
+
+                // Rotation 180
+                t = tile_rotate_90(t);
+                if(can_slot(p, t, x, y))
+                {
+                    do_slot(tiles, remaining_tiles, used_tiles, p, x, y, t);
+                }
+
+                // Flip horizontal
+                t_h = tile_flip_horizontal(t);
+                if(can_slot(p, t_h, x, y))
+                {
+                    do_slot(tiles, remaining_tiles, used_tiles, p, x, y, t_h);
+                }
+
+                t_v = tile_flip_vertical(t);
+                if(can_slot(p, t_v, x, y))
+                {
+                    do_slot(tiles, remaining_tiles, used_tiles, p, x, y, t_v);
+                }
+
+                // Rotation 270
+                t = tile_rotate_90(t);
+                if(can_slot(p, t, x, y))
+                {
+                    do_slot(tiles, remaining_tiles, used_tiles, p, x, y, t);
+                }
+
+                // Flip horizontal
+                t_h = tile_flip_horizontal(t);
+                if(can_slot(p, t_h, x, y))
+                {
+                    do_slot(tiles, remaining_tiles, used_tiles, p, x, y, t_h);
+                }
+
+                t_v = tile_flip_vertical(t);
+                if(can_slot(p, t_v, x, y))
+                {
+                    do_slot(tiles, remaining_tiles, used_tiles, p, x, y, t_v);
+                }
+
 
                 used_tiles.erase(tid);
             }
@@ -581,7 +578,7 @@ auto slot(
 }
 
 auto slot_picture(
-    const std::map<tile_id, std::array<tile, 4>>& tiles
+    const std::map<tile_id, tile>& tiles
 ) -> void
 {
     size_t side_length = std::sqrt(tiles.size());
@@ -594,7 +591,7 @@ auto slot_picture(
     }
 
     std::set<tile_id> remaining_tiles{};
-    for(const auto& [tid, tile_set] : tiles)
+    for(const auto& [tid, tile] : tiles)
     {
         remaining_tiles.emplace(tid);
     }
@@ -614,16 +611,6 @@ int main(int argc, char* argv[])
     auto contents = file::read(args[1]);
 
     auto tiles = parse_input(contents);
-
-    find_matches(tiles);
-
-    for(const auto& [id, tile_set] : tiles)
-    {
-        for(const auto& t : tile_set)
-        {
-            std::cout << t << "\n";
-        }
-    }
 
     slot_picture(tiles);
 
