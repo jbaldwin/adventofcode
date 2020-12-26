@@ -122,6 +122,8 @@ project_setup(2016 10 1)
 # project_setup(2016 10 2) # No new code for 10.2
 project_setup(2016 11 1)
 # project_setup(2020 11 1) # No new code for 11.2
+project_setup(2016 12 1)
+# project_setup(2016 12 2) # No new code for 12.2
 
 project_setup(2019 01 1)
 project_setup(2019 01 2)
