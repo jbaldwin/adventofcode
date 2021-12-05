@@ -1,5 +1,5 @@
 [package]
-name = "aoc_2021_p1"
+name = "aoc_2021_day01_p1"
 version = "1.0.0"
 edition = "2021"
 
