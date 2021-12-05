@@ -5,6 +5,7 @@
 #include <queue>
 #include <variant>
 #include <list>
+#include <limits>
 
 #include <lib/AStar.hpp>
 #include <lib/file_util.hpp>
