@@ -131,6 +131,7 @@ fn main() {
             if b.winner == false {
                 b.number_drawn(n);
                 if b.has_won() {
+                    remaining = remaining - 1;
                     if remaining == 0 {
                         println!("{}", b);
 
