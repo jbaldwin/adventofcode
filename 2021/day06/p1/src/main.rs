@@ -36,7 +36,7 @@ fn main() {
         lf2[6] += lf1[0];
         lf2[8] = lf1[0];
 
-        // Swap and rest.
+        // Swap and reset.
         lf1 = lf2;
         lf2 = vec![0, 0, 0, 0, 0, 0, 0, 0, 0];
     }
