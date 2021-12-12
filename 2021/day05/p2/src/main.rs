@@ -43,16 +43,10 @@ impl Line {
 
         let b_x = b_split.next().unwrap();
         let b_y = b_split.next().unwrap();
-        
-        Line { 
-            a: Point::new(
-                a_x.parse::<i64>().unwrap(),
-                a_y.parse::<i64>().unwrap()
-            ),
-            b: Point::new(
-                b_x.parse::<i64>().unwrap(),
-                b_y.parse::<i64>().unwrap()
-            ) 
+
+        Line {
+            a: Point::new(a_x.parse::<i64>().unwrap(), a_y.parse::<i64>().unwrap()),
+            b: Point::new(b_x.parse::<i64>().unwrap(), b_y.parse::<i64>().unwrap()),
         }
     }
 
@@ -66,7 +60,7 @@ impl Line {
             x_step = if self.a.x < self.b.x { 1 } else { -1 };
         }
 
-        if self.a.y != self.b.y { 
+        if self.a.y != self.b.y {
             y_step = if self.a.y < self.b.y { 1 } else { -1 };
         }
 
@@ -118,9 +112,7 @@ fn main() {
         for point in line_points {
             if let Some(p) = data.get_mut(&point) {
                 *p = *p + 1;
-            }
-            else
-            {
+            } else {
                 data.insert(point, 1);
             }
         }
