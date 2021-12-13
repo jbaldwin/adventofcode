@@ -15,4 +15,6 @@ members = [
     # 2021/day06/p2 is identical to p1
     "2021/day07/p1",
     "2021/day07/p2",
+    "2021/day08/p1",
+    "2021/day08/p2",
 ]
