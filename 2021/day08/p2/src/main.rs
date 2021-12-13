@@ -67,18 +67,6 @@ fn main() {
         vec!['1', '1', '1', '1', '0', '1', '1'], // 9
     ];
 
-    // let patterns5: Vec<Vec<char>> = vec![
-    //     vec!['1', '0', '1', '1', '1', '0', '1'], // 2
-    //     vec!['1', '0', '1', '1', '0', '1', '1'], // 3
-    //     vec!['1', '1', '0', '1', '0', '1', '1'], // 5
-    // ];
-
-    // let patterns6: Vec<Vec<char>> = vec![
-    //     vec!['1', '1', '1', '0', '1', '1', '1'], // 0
-    //     vec!['1', '1', '0', '1', '1', '1', '1'], // 6
-    //     vec!['1', '1', '1', '1', '0', '1', '1'], // 9
-    // ];
-
     // Counts:
     // 2 => 1
     // 3 => 7
@@ -142,15 +130,13 @@ fn main() {
 }
 
 fn column_check(slots: &SlotsType) -> bool {
-    let cc = slots[0].0.len();
-
-    for i in 0..cc {
+    for i in 0..7 {
         let mut present: HashSet<char> = HashSet::new();
-        for pattern in slots {
-            if pattern.0[i] != '0' {
-                present.insert(pattern.0[i]);
 
-                // This column has a mismatch yay!
+        for slot in slots.iter() {
+            if slot.0[i] != '0' {
+                present.insert(slot.0[i]);
+
                 if present.len() > 1 {
                     return false;
                 }
@@ -174,32 +160,30 @@ fn solve(
 
     let key = &remaining[0];
 
-    let possible_patterns: Vec<(&Vec<char>, i64)> = match key.len() {
+    let mut possible_patterns: [i64; 3] = [-1, -1, -1];
+
+    match key.len() {
         2 => {
-            vec![(&patterns[1], 1)]
+            possible_patterns[0] = 1;
         }
         3 => {
-            vec![(&patterns[7], 7)]
+            possible_patterns[0] = 7;
         }
         4 => {
-            vec![(&patterns[4], 4)]
+            possible_patterns[0] = 4;
         }
         7 => {
-            vec![(&patterns[8], 8)]
+            possible_patterns[0] = 8;
         }
         5 => {
-            let mut pp: Vec<(&Vec<char>, i64)> = Vec::with_capacity(fives_left.len());
-            for i in fives_left.iter() {
-                pp.push((&patterns[*i as usize], *i));
+            for i in 0..fives_left.len() {
+                possible_patterns[i] = fives_left[i];
             }
-            pp
         }
         6 => {
-            let mut pp: Vec<(&Vec<char>, i64)> = Vec::with_capacity(sixes_left.len());
-            for i in sixes_left.iter() {
-                pp.push((&patterns[*i as usize], *i));
+            for i in 0..sixes_left.len() {
+                possible_patterns[i] = sixes_left[i];
             }
-            pp
         }
         _ => {
             panic!("bad logic")
@@ -208,10 +192,14 @@ fn solve(
 
     let chars: Vec<char> = key.chars().collect();
 
-    for possible_pattern in possible_patterns {
+    for possible_pattern_idx in possible_patterns {
+        if possible_pattern_idx == -1 {
+            return None;
+        }
+
         for perm in chars.iter().permutations(chars.len()) {
             let mut slots_copy = slots.clone();
-            let mut pattern = possible_pattern.0.clone();
+            let mut pattern = patterns[possible_pattern_idx as usize].clone();
 
             let mut count: usize = 0;
 
@@ -222,7 +210,7 @@ fn solve(
                 }
             }
 
-            slots_copy.push((pattern, key.clone(), possible_pattern.1));
+            slots_copy.push((pattern, key.clone(), possible_pattern_idx));
 
             if slots_copy.len() > 1 {
                 if !column_check(&slots) {
@@ -237,11 +225,11 @@ fn solve(
             let mut sl = sixes_left.clone();
 
             fl.iter()
-                .position(|&n| n == possible_pattern.1)
+                .position(|&n| n == possible_pattern_idx)
                 .map(|e| fl.remove(e));
 
             sl.iter()
-                .position(|&n| n == possible_pattern.1)
+                .position(|&n| n == possible_pattern_idx)
                 .map(|e| sl.remove(e));
 
             if let Some(solution) = solve(&patterns, slots_copy, remaining_copy, fl, sl) {
