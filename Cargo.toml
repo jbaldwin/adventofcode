@@ -30,4 +30,6 @@ members = [
     # "2021/day13/p2", is a cli param to p1
     "2021/day14/p1",
     "2021/day14/p2",
+    "2021/day15/p1",
+    "2021/day15/p2",
 ]
