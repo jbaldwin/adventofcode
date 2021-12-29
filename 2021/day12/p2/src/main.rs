@@ -1,6 +1,6 @@
 use aoc_core;
-use std::collections::HashSet;
 use std::collections::HashMap;
+use std::collections::HashSet;
 
 type Caves = HashMap<String, HashSet<String>>;
 
@@ -9,9 +9,8 @@ fn pathfind(
     current: String,
     mut visited: Vec<String>,
     paths: &mut Vec<Vec<String>>,
-    twice_used: bool
+    twice_used: bool,
 ) {
-
     if current == "end" {
         visited.push(current);
         paths.push(visited);
@@ -45,13 +44,16 @@ fn main() {
 
     let mut caves: Caves = HashMap::new();
     for line in lines.iter() {
-        let parts: Vec<String> = line.split('-')
-            .into_iter()
-            .map(|s| s.to_string())
-            .collect();
-        
-        caves.entry(parts[0].clone()).or_insert(HashSet::new()).insert(parts[1].clone());
-        caves.entry(parts[1].clone()).or_insert(HashSet::new()).insert(parts[0].clone());
+        let parts: Vec<String> = line.split('-').into_iter().map(|s| s.to_string()).collect();
+
+        caves
+            .entry(parts[0].clone())
+            .or_insert(HashSet::new())
+            .insert(parts[1].clone());
+        caves
+            .entry(parts[1].clone())
+            .or_insert(HashSet::new())
+            .insert(parts[0].clone());
     }
 
     for (cave, connected) in caves.iter() {

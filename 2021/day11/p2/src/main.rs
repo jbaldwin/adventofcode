@@ -25,7 +25,7 @@ fn step(grid: &mut Grid) -> bool {
             for y in 0..grid[0].len() {
                 if grid[x][y] > 9 {
                     grid[x][y] = 0;
-                    
+
                     for dx in -1..=1 {
                         for dy in -1..=1 {
                             if dx == 0 && dy == 0 {
@@ -35,8 +35,11 @@ fn step(grid: &mut Grid) -> bool {
                             let nx = (x as i64) + dx;
                             let ny = (y as i64) + dy;
 
-                            if nx >= 0 && nx < grid.len() as i64 &&
-                               ny >= 0 && ny < grid[0].len() as i64 {
+                            if nx >= 0
+                                && nx < grid.len() as i64
+                                && ny >= 0
+                                && ny < grid[0].len() as i64
+                            {
                                 let octo: &mut u64 = &mut grid[nx as usize][ny as usize];
 
                                 if *octo > 0 {
