@@ -24,3 +24,8 @@ pub fn str_split_char(s: &str, delim: char) -> Vec<String> {
     let parts: Vec<String> = s.split(delim).into_iter().map(|s| s.to_string()).collect();
     parts
 }
+
+pub fn str_split_str(s: &str, delim: &str) -> Vec<String> {
+    let parts: Vec<String> = s.split(delim).into_iter().map(|s| s.to_string()).collect();
+    parts
+}

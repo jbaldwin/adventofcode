@@ -13,7 +13,7 @@ members = [
     "2021/day05/p1",
     "2021/day05/p2",
     "2021/day06/p1",
-    # 2021/day06/p2 is identical to p1
+    # "2021/day06/p2", is identical to p1
     "2021/day07/p1",
     "2021/day07/p2",
     "2021/day08/p1",
@@ -27,4 +27,7 @@ members = [
     "2021/day12/p1",
     "2021/day12/p2",
     "2021/day13/p1",
+    # "2021/day13/p2", is a cli param to p1
+    "2021/day14/p1",
+    "2021/day14/p2",
 ]

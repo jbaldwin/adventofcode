@@ -85,7 +85,7 @@ fn main() {
     println!();
 
     let mut s = 1;
-    let mut all_flashed = false;
+    let mut all_flashed: bool;
     loop {
         all_flashed = step(&mut octopuses);
         println!("After step {}:", s);
