@@ -79,13 +79,6 @@ fn main() {
         }
     }
 
-    for row in grid.iter() {
-        for col in row.iter() {
-            print!("{}", col);
-        }
-        println!();
-    }
-
     let neighbors: Vec<Pos> = vec![Pos(-1, 0), Pos(1, 0), Pos(0, -1), Pos(0, 1)];
 
     let goal: Pos = Pos((grid.len() - 1) as i64, (grid[0].len() - 1) as i64);

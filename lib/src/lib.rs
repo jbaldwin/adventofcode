@@ -10,14 +10,6 @@ pub fn args_init(required_args: usize) -> Vec<String> {
 pub fn file_read_delim(file: &str, delim: char) -> Vec<String> {
     let contents = std::fs::read_to_string(file).unwrap();
     str_split_char(&contents, delim)
-
-    // let lines: Vec<String> = std::fs::read_to_string(file)
-    //     .unwrap()
-    //     .split(delim)
-    //     .into_iter()
-    //     .map(|s| s.to_string())
-    //     .collect();
-    // lines
 }
 
 pub fn str_split_char(s: &str, delim: char) -> Vec<String> {
