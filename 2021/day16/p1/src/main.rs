@@ -35,8 +35,8 @@ enum TypeId {
 #[derive(Debug)]
 struct Packet {
     version: i16,
-    type_id: TypeId,
-    data: Option<i64>,
+    _type_id: TypeId,
+    _data: Option<i64>,
 }
 
 fn parse_packet_headers(mut bin: &str) -> (i16, TypeId) {
@@ -49,8 +49,6 @@ fn parse_packet_headers(mut bin: &str) -> (i16, TypeId) {
         "100" => TypeId::LiteralValue,
         _ => TypeId::Operator,
     };
-
-    println!("{}\n{}-{:?}", bin, version, type_id);
 
     (version, type_id)
 }
@@ -74,8 +72,8 @@ fn parse_packet_literal_value(mut bin: &str, version: i16) -> (Packet, usize) {
             return (
                 Packet {
                     version,
-                    type_id: TypeId::LiteralValue,
-                    data: Some(data),
+                    _type_id: TypeId::LiteralValue,
+                    _data: Some(data),
                 },
                 used,
             );
@@ -134,8 +132,8 @@ fn parse_packets(mut bin: &str) -> (Vec<Packet>, usize) {
         TypeId::Operator => {
             packets.push(Packet {
                 version: version,
-                type_id: type_id,
-                data: None,
+                _type_id: type_id,
+                _data: None,
             });
 
             let len_type_id_str = &bin[..1];
