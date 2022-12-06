@@ -196,13 +196,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "aoc_2021_day18_p1"
-version = "1.0.0"
-dependencies = [
- "aoc_core",
-]
-
-[[package]]
 name = "aoc_2022_day01_p1"
 version = "1.0.0"
 dependencies = [
@@ -254,6 +247,20 @@ dependencies = [
 
 [[package]]
 name = "aoc_2022_day04_p2"
+version = "1.0.0"
+dependencies = [
+ "aoc_core",
+]
+
+[[package]]
+name = "aoc_2022_day05_p1"
+version = "1.0.0"
+dependencies = [
+ "aoc_core",
+]
+
+[[package]]
+name = "aoc_2022_day05_p2"
 version = "1.0.0"
 dependencies = [
  "aoc_core",
