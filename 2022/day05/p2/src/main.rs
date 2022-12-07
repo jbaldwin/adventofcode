@@ -46,13 +46,13 @@ fn main() {
             let from_idx = line.find("from ").unwrap() + 5;
             let to_idx = line.find("to ").unwrap() + 3;
 
-            let amount_str = &line[amount_idx..(from_idx - 5)].trim();
-            let from_str = &line[from_idx..(to_idx - 3)].trim();
-            let to_str = &line[to_idx..].trim();
+            let amount_str = &line[amount_idx..(from_idx - 6)];
+            let from_str = &line[from_idx..(to_idx - 4)];
+            let to_str = &line[to_idx..];
 
             instructions.push(Instruction {
                 amount: amount_str.parse::<u64>().unwrap(),
-                from: from_str.parse::<usize>().unwrap() - 1,
+                from: from_str.parse::<usize>().unwrap() - 1, // account for zero indexed vec
                 to: to_str.parse::<usize>().unwrap() - 1,
             });
         }
