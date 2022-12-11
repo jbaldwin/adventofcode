@@ -309,6 +309,20 @@ dependencies = [
 ]
 
 [[package]]
+name = "aoc_2022_day09_p1"
+version = "1.0.0"
+dependencies = [
+ "aoc_core",
+]
+
+[[package]]
+name = "aoc_2022_day09_p2"
+version = "1.0.0"
+dependencies = [
+ "aoc_core",
+]
+
+[[package]]
 name = "aoc_core"
 version = "1.0.0"
 
