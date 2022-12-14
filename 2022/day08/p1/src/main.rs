@@ -1,14 +1,5 @@
 use aoc_core;
 
-fn print_trees(trees: &Vec<Vec<u32>>) {
-    for row in trees.iter() {
-        for col in row.iter() {
-            print!("{}", col);
-        }
-        println!();
-    }
-}
-
 fn is_visible(trees: &Vec<Vec<u32>>, x: usize, y: usize) -> bool {
     // Anything on the edge is always visible.
     if x == 0 || y == 0 || x == trees.len() - 1 || y == trees[0].len() - 1 {

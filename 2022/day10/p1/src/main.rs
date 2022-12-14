@@ -31,7 +31,7 @@ fn main() {
     let mut signal_strengths = Vec::new();
 
     for (n, i) in instructions.iter().enumerate() {
-        match (n + 1) {
+        match n + 1 {
             20 => {
                 signal_strengths.push(x * 20);
             },
