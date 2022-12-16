@@ -1,4 +1,5 @@
 use aoc_core;
+use std::collections::HashSet;
 use std::time::Instant;
 
 #[derive(Eq, PartialEq, Hash, Clone)]
@@ -21,17 +22,15 @@ impl std::fmt::Display for Point {
 
 struct Sensor {
     s: Point,
-    b: Point,
     md: i64,
 }
 
 impl Sensor {
-    fn new(s: Point, b: Point) -> Sensor {
+    fn new(s: Point, b: &Point) -> Sensor {
         let md = (s.x - b.x).abs() + (s.y - b.y).abs();
 
         Sensor {
             s,
-            b,
             md,
         }
     }
@@ -46,6 +45,7 @@ fn main() {
     let y = args[2].parse::<i64>().unwrap();
 
     let mut arrangement = Vec::new();
+    let mut beacons = HashSet::new();
 
     let mut min_x = i64::MAX;
     let mut max_x = i64::MIN;
@@ -67,15 +67,15 @@ fn main() {
         let s = Point::new(s_x_part.parse::<i64>().unwrap(), s_y_part.parse::<i64>().unwrap());
         let b = Point::new(b_x_part.parse::<i64>().unwrap(), b_y_part.parse::<i64>().unwrap());
 
-        let sensor = Sensor::new(s.clone(), b);
+        let sensor = Sensor::new(s.clone(), &b);
+
+        beacons.insert(b);
 
         min_x = std::cmp::min(min_x, s.x - sensor.md);
         max_x = std::cmp::max(max_x, s.x + sensor.md);
 
         arrangement.push(sensor);
     }
-
-    let mut searched = 0usize;
 
     let capacity = (max_x + min_x.abs()) as usize;
     let mut y_row = Vec::with_capacity(capacity);
@@ -85,16 +85,19 @@ fn main() {
     }
     let min_x_abs = min_x.abs();
 
-    // Prepopulate beacons as 'searched' but don't count towards the total.
-    for sensor in arrangement.iter() {
-        if sensor.b.y == y {
-            y_row[(sensor.b.x + min_x_abs) as usize] = true;
-        }
-    }
     let elapsed = now.elapsed();
     println!("setup {}ms", elapsed.as_millis());
 
     let now = Instant::now();
+    // Prepopulate beacons as 'searched' but don't count towards the total.
+    let mut beacons_in_row = 0i64;
+    for beacon in beacons.iter() {
+        if beacon.y == y {
+            y_row[(beacon.x + min_x_abs) as usize] = true;
+            beacons_in_row += 1;
+        }
+    }
+
     for sensor in arrangement.iter() {
         let s = &sensor.s;
         let y_dist = (s.y - y).abs();
@@ -106,22 +109,23 @@ fn main() {
 
         let x_remaining_dist = sensor.md - y_dist;
 
-        // Start at the intersection point and go up and down until no matches
-        for x in s.x..=(s.x + x_remaining_dist) {
-            if y_row[(x + min_x_abs) as usize] == false {
-                searched += 1;
-                y_row[(x + min_x_abs) as usize] = true;
-            }
+        // Start at the intersection point and go left and right for remaining x dist.
+        for x in (s.x + min_x_abs)..=(s.x + x_remaining_dist + min_x_abs) {
+            y_row[x as usize] = true;
         }
 
-        for x in (s.x - x_remaining_dist)..s.x {
-            if y_row[(x + min_x_abs) as usize] == false {
-                searched += 1;
-                y_row[(x + min_x_abs) as usize] = true;
-            }
+        for x in (s.x - x_remaining_dist + min_x_abs)..(s.x + min_x_abs) {
+            y_row[x as usize] = true;
         }
     }
     let elapsed = now.elapsed();
 
-    println!("{} in {}ms", searched, elapsed.as_millis());
+    let total: i64 = y_row.iter().fold(0, |a, b| {
+        match *b {
+            true => a + 1,
+            false => a,
+        }
+    });
+
+    println!("{} in {}ms", total - beacons_in_row, elapsed.as_millis());
 }
