@@ -79,7 +79,7 @@ fn main() {
 
     let capacity = (max_x + min_x.abs()) as usize;
     let mut y_row = Vec::with_capacity(capacity);
-    // println!("capacity={}, min_x={}, max_x={}", capacity, min_x, max_x);
+
     for _ in min_x..=max_x {
         y_row.push(false);
     }
@@ -104,53 +104,24 @@ fn main() {
             continue;
         }
 
-        // Start at the intersection point and go up and down until no matches
-        for x in s.x..=max_x {
-            if y_row[(x + min_x_abs) as usize] == false {
-                let ys_md = (s.x - x).abs() + y_dist;
+        let x_remaining_dist = sensor.md - y_dist;
 
-                if ys_md <= sensor.md {
-                    searched += 1;
-                    y_row[(x + min_x_abs) as usize] = true;
-                } 
-                else {
-                    break; // Anything past this point is beyond the manhatten distance
-                }
+        // Start at the intersection point and go up and down until no matches
+        for x in s.x..=(s.x + x_remaining_dist) {
+            if y_row[(x + min_x_abs) as usize] == false {
+                searched += 1;
+                y_row[(x + min_x_abs) as usize] = true;
             }
         }
 
-        for x in (min_x..s.x).rev() {
+        for x in (s.x - x_remaining_dist)..s.x {
             if y_row[(x + min_x_abs) as usize] == false {
-                let ys_md = (s.x - x).abs() + y_dist;
-
-                if ys_md <= sensor.md {
-                    searched += 1;
-                    y_row[(x + min_x_abs) as usize] = true;
-                } 
-                else {
-                    break; // Anything past this point is beyond the manhatten distance
-                }
+                searched += 1;
+                y_row[(x + min_x_abs) as usize] = true;
             }
         }
     }
     let elapsed = now.elapsed();
-
-
-    // for x in min_x..=max_x {
-    //     for sensor in arrangement.iter() {
-    //         let s = &sensor.s;
-
-    //         let ys_md = (s.x - x).abs() + (s.y - y).abs();
-
-    //         if ys_md <= sensor.md {
-    //             // Sensors do not appear to be in the Y row, only need to check against beacons.
-    //             if !beacons.contains(&Point::new(x, y)) {
-    //                 searched += 1;
-    //             }
-    //             break;
-    //         }
-    //     }
-    // }
 
     println!("{} in {}ms", searched, elapsed.as_millis());
 }
