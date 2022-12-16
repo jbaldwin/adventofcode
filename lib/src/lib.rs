@@ -22,6 +22,11 @@ pub fn str_split_str(s: &str, delim: &str) -> Vec<String> {
     parts
 }
 
+// Cannot currently put this on a trait and impl for &str due to core::std::Pattern being private/unstable.
+pub fn str_split<'a>(s: &'a str, delim: &str) -> Vec<&'a str> {
+    s.split(delim).into_iter().collect()
+}
+
 pub fn lcm(first: usize, second: usize) -> usize {
     first * second / gcd(first, second)
 }
