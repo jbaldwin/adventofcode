@@ -37,7 +37,7 @@ fn main() {
 
     for (p1, p2) in assignments.iter() {
         if p1.intersects(&p2) {
-            intersects.push((p1.clone(), p2.clone()));
+            intersects.push((p1, p2));
         }
     }
 

@@ -423,6 +423,20 @@ dependencies = [
 ]
 
 [[package]]
+name = "aoc_2023_day01_p1"
+version = "1.0.0"
+dependencies = [
+ "aoc_core",
+]
+
+[[package]]
+name = "aoc_2023_day02_p1"
+version = "1.0.0"
+dependencies = [
+ "aoc_core",
+]
+
+[[package]]
 name = "aoc_core"
 version = "1.0.0"
 

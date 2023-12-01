@@ -22,6 +22,12 @@ pub fn str_split_str(s: &str, delim: &str) -> Vec<String> {
     parts
 }
 
+pub fn input_to_lines() -> Vec<String> {
+    let args = args_init(2);
+    let contents = std::fs::read_to_string(&args[1]).unwrap();
+    str_split_char(&contents, '\n')
+}
+
 // Cannot currently put this on a trait and impl for &str due to core::std::Pattern being private/unstable.
 pub fn str_split<'a>(s: &'a str, delim: &str) -> Vec<&'a str> {
     s.split(delim).into_iter().collect()

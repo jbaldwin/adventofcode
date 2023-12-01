@@ -131,7 +131,7 @@ fn pull_rope(rope: &mut Vec<Point>, visited: &mut HashSet<Point>) {
 
 fn move_head(rope: &mut Vec<Point>, dir: char, visited: &mut HashSet<Point>) {
     {
-        let mut first = rope.first_mut().unwrap();
+        let first = rope.first_mut().unwrap();
         match dir {
             'R' => { first.x += 1 },
             'L' => { first.x -= 1 },

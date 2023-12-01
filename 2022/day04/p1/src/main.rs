@@ -37,9 +37,9 @@ fn main() {
 
     for (p1, p2) in assignments.iter() {
         if p1.fully_contains(&p2) {
-            contained.push(p2.clone());
+            contained.push(p2);
         } else if p2.fully_contains(&p1) {
-            contained.push(p1.clone());
+            contained.push(p1);
         }
     }
 

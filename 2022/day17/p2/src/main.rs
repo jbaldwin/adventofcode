@@ -128,5 +128,5 @@ fn main() {
     let args = aoc_core::args_init(2);
     let contents = std::fs::read_to_string(&args[1]).unwrap();
 
-    println!("{}", simulate(contents, 1000000000000).unwrap());
+    println!("{}", simulate(contents.as_str(), 1000000000000).unwrap());
 }
