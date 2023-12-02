@@ -1,0 +1,9 @@
+[package]
+name = "aoc_2016_day13_p2"
+version = "1.0.0"
+edition = "2021"
+
+[dependencies]
+aoc_core = { path = "../../../lib" }
+pathfinding = "4.4.0"
+itertools = "0.12.0"

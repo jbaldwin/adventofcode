@@ -3,6 +3,10 @@ resolver = "2"
 
 members = [
     "lib",
+
+    "2016/day13/p1",
+    "2016/day13/p2",
+
     "2021/day01/p1",
     "2021/day01/p2",
     "2021/day02/p1",
